@@ -1,0 +1,56 @@
+.navigation-bar {
+  position: fixed;
+  right: 0;
+  top:65px;
+  background-color: rgba(22, 116, 209, 0.5);
+  max-height: 400px;
+  transition: max-height 0.6s;
+  overflow: hidden;
+  display: flex;
+  &__nav-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    list-style-type: none;
+    padding: @main-padding;
+    padding-top: 0;
+    margin: 0;
+  }
+  &__nav-item {
+    text-transform: uppercase;
+    padding-top: @main-padding-top;
+  }
+  &_hidden {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s;
+  }
+  &__nav-link {
+    color: @secondary-text-color;
+    transition: .5s;
+    font-size: @font-size-xs;
+    text-decoration: none;
+    &:hover {
+      color: @link-color-hover;
+    }
+  }
+}
+
+@media @tablet, @desktop {
+  .navigation-bar {
+    position: relative;
+    top:0;
+    background: none;
+    &_hidden {
+      max-height: none;
+      overflow: hidden;
+    }
+    &__nav-list {
+      display: flex;
+      flex-direction: row;
+    }
+    &__nav-item {
+      padding-right: 10px;
+    }
+  }
+}

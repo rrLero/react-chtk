@@ -1,0 +1,30 @@
+.header {
+  min-height: 50px;
+  display: flex;
+  backface-visibility: hidden;
+  justify-content: space-between;
+  background-color: rgba(22, 116, 209, 0.5);
+
+  &__button {
+    position: relative;
+    padding: 9px 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    flex-grow: 0;
+    justify-content: flex-end;
+  }
+
+  &__logo {
+  }
+  &__navigation-bar {
+  }
+
+}
+
+@media @tablet, @desktop {
+  .header {
+    &__button {
+      display: none;
+    }
+  }
+}

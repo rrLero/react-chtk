@@ -1,0 +1,26 @@
+.intro {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: @all-page-padding;
+
+  &__img {
+    max-width: 100%;
+    height: auto;
+  }
+  &__title {
+    color: @secondary-color;
+    flex-basis: 100%;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  &__text {
+  }
+}
+
+@media @tablet, @desktop {
+  .intro {
+    padding: @all-page-padding-desktop;
+  }
+}

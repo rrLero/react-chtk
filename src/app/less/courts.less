@@ -1,0 +1,98 @@
+.courts {
+  display: flex;
+  flex-wrap: wrap;
+  background: url("../img/header-background.jpg") no-repeat center center / cover;
+  justify-content: center;
+  padding: @all-page-padding;
+  align-items: center;
+  &__title {
+    color: @primary-color;
+    text-transform: uppercase;
+    font-weight: @font-weight-normal;
+    text-align: center;
+    flex-basis: 100%;
+  }
+  &__list {
+    color: @primary-color;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    list-style-type: none;
+    padding: 0;
+
+    &-item {
+      position: relative;
+      flex-basis: 100%;
+      margin-top: 25px;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.1);
+        z-index: 10;
+        & .courts__details {
+          opacity: 1;
+          height: auto;
+          transform: scale(0.7) translateY(-20%);
+          transition: transform 500ms, opacity 500ms, z-index 500ms;
+        }
+        & .text {
+          margin: 20px;
+        }
+      }
+      transition: transform 500ms, opacity, z-index 500ms;
+    }
+  }
+
+  &__img {
+    width: 100%;
+    border-radius: 10%;
+  }
+  &__details {
+    opacity: 0;
+    position: absolute;
+    overflow: hidden;
+    height: 100%;
+    transition: opacity 500ms, transform 500ms;
+    background: rgba(22, 116, 100, 0.5);
+  }
+  &__details_hidden {
+    display: none;
+  }
+}
+
+@media @desktop {
+  .courts {
+    padding: @all-page-padding-desktop;
+    &__list {
+      &-item {
+        flex-basis: 40%;
+        &:hover {
+          transform: scale(1.5);
+          & .courts__details {
+            transform: scale(0.5) translateY(-50%);
+          }
+        }
+      }
+    }
+    &__details_hidden {
+      display: block;
+    }
+  }
+}
+
+@media @tablet {
+  .courts {
+    padding: @all-page-padding-desktop;
+    &__list {
+      &-item {
+        flex-basis: 48%;
+        &:hover {
+          transform: scale(1.5);
+          & .courts__details {
+            transform: scale(0.5) translateY(-50%);
+          }
+        }
+      }
+    }
+  }
+}
