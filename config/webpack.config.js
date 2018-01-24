@@ -1,18 +1,19 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-    entry: ['babel-polyfill', './src/index.js'],
+    cache: true,
+    entry: ['babel-polyfill','./src/index.js'],
     output: {
-        filename: 'bundle.[hash].js',
-        path: path.resolve(__dirname, '../docs')
+        filename: '[name].bundle.[hash].js',
+        path: path.resolve(__dirname, '../dist')
     },
     resolve: {
         extensions: [
             '.less',
-            '.js',
-            '.jsx'
+            '.js'
         ]
     },
     plugins: [
@@ -20,30 +21,42 @@ module.exports = {
             hash: true,
             template: './src/index.html'
         }),
-        new CopyWebpackPlugin ([
-            { from: 'src/app/img', to: 'img' }
-        ])
+        new BrowserSyncPlugin({
+                open: false,
+                notify: false,
+                port: 9000,
+                proxy: 'http://localhost:8080/'
+            },
+            {
+                reload: false
+            }),
+        new ExtractTextPlugin("styles.css")
     ],
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
+                test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 include: path.resolve()
             },
-            {
-                test: /\.less/,
-                loader: 'style-loader!css-loader!less-loader'
-            },
-            {
-                test: /\.html$/,
-                loader: 'html-loader',
-            },
+            process.env.NODE_ENV === 'production' ?
+                {
+                    test: /\.less/,
+                    use: ExtractTextPlugin.extract({
+                        fallback: "style-loader",
+                        use: 'css-loader?{minimize: true}!less-loader'
+                    })
+                }
+                :
+                {
+                    test: /\.less/,
+                    loader: 'style-loader!css-loader!less-loader'
+                },
             {
                 test: /\.(png|jpg|gif)$/,
                 use: {
-                    loader: 'url-loader',
+                    loader: 'file-loader',
                     options: {
                         name: "./img/[name].[ext]"
                     }

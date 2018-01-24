@@ -1,7 +1,9 @@
+@import "../../../public/less/variables";
+
 .courts {
   display: flex;
   flex-wrap: wrap;
-  background: url("../img/header-background.jpg") no-repeat center center / cover;
+  background: url("../../../public/header-background.jpg") no-repeat center center / cover;
   justify-content: center;
   padding: @all-page-padding;
   align-items: center;
@@ -16,7 +18,7 @@
     color: @primary-color;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-grow: 1;
     list-style-type: none;
     padding: 0;
@@ -82,7 +84,7 @@
 
 @media @tablet {
   .courts {
-    padding: @all-page-padding-desktop;
+    padding: @all-page-padding-tablet;
     &__list {
       &-item {
         flex-basis: 48%;

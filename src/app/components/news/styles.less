@@ -1,7 +1,9 @@
+@import "../../../public/less/variables";
+
 .news {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: flex-start;
   padding: @all-page-padding;
   position: relative;
@@ -82,6 +84,8 @@
   }
 }
 
+@import "text";
+
 @media @tablet, @desktop {
   .news {
     padding: @all-page-padding-desktop;
@@ -94,7 +98,13 @@
       }
     }
     &__currentNew {
-      flex-basis: 50%;
+      flex-basis: 48%;
     }
+  }
+}
+
+@media @tablet {
+  .news {
+    padding: @all-page-padding-tablet;
   }
 }

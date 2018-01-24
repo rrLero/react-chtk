@@ -1,3 +1,5 @@
+@import "../../../public/less/variables";
+
 .intro {
   display: flex;
   flex-wrap: wrap;
@@ -19,8 +21,14 @@
   }
 }
 
-@media @tablet, @desktop {
+@media @desktop {
   .intro {
     padding: @all-page-padding-desktop;
+  }
+}
+
+@media @tablet {
+  .intro {
+    padding: @all-page-padding-tablet;
   }
 }
