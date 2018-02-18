@@ -2,70 +2,55 @@
 import './styles.less';
 import React from 'react';
 
-import {Db} from "../../shared/db";
-import {baseURL} from "../../shared/baseurl";
+import OneCourt from '../one-court';
+import type {Court} from "../../../typedef";
+import {connect} from "react-redux";
+import {getCourts} from "./actions";
 
-type Props = {};
-type StateCourts = {
-    courts: Array<{ [key: string]: string }>
+type StateProps = {
+    courts: Array<Court>
 };
 
-const OneCourt = ({address, name, phones, type, description, imageUrl}: {address: string, name: string, phones: string, type: string, description: string, imageUrl: string}) => {
-    return (
-        <li className="courts__list-item">
-            <section className="courts__details">
-                <p className="text text_white">{address}</p>
-                <p className="text text_white courts__details_hidden">{description}</p>
-                <p className="text text_white">{name}</p>
-                <p className="text text_white">{phones}</p>
-                <p className="text text_white">{type}</p>
-            </section>
-            <img className="courts__img" src={imageUrl}/>
-        </li>
-    )
-};
+type DispatchProps = {
+    getCourts: () => void
+}
 
-export class AppCourts extends React.Component<Props, StateCourts> {
+type Props = StateProps & DispatchProps;
 
-    state: StateCourts;
-
-    constructor() {
-        super();
-        this.state = {courts: []};
-    }
+class AppCourts extends React.Component<Props> {
 
     componentDidMount() {
-        this.getList();
-    }
-
-    getList() {
-        Db.listCourts().then((res) => res.json()).then((json) => {
-            this.setState({courts: json})
-        })
+        const {getCourts} = this.props;
+        getCourts();
     }
 
     render() {
+        const {courts} = this.props;
         return (
             <section className="courts" id="courts">
                 <h1 className="courts__title">Корты нашего клуба</h1>
                 <ul className="courts__list">
-                    {
-                        this.state.courts.map((court) => {
-                            return (
-                                <OneCourt
-                                    key={court.id}
-                                    address={court.address}
-                                    description={court.description}
-                                    name={court.name}
-                                    phones={court.phones}
-                                    type={court.type}
-                                    imageUrl={baseURL + '/static/files/' + court.image}
-                                />
-                            )
-                        })
-                    }
+                    {courts.map((court) => {
+                        return (
+                            <OneCourt
+                                key={court.id}
+                                address={court.adress}
+                                description={court.description}
+                                name={court.name}
+                                phones={court.phones}
+                                type={court.type}
+                                imageUrl={court.image ? require('./' + court.image) : ''}
+                            />
+                        )
+                    })}
                 </ul>
             </section>
         )
     }
 }
+
+export default connect(state => ({
+    courts: state.courts.courts,
+}), {
+    getCourts,
+})(AppCourts);

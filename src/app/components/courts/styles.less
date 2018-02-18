@@ -33,12 +33,7 @@
         z-index: 10;
         & .courts__details {
           opacity: 1;
-          height: auto;
-          transform: scale(0.7) translateY(-20%);
-          transition: transform 500ms, opacity 500ms, z-index 500ms;
-        }
-        & .text {
-          margin: 20px;
+          transform: scale(1) rotate(0deg);
         }
       }
       transition: transform 500ms, opacity, z-index 500ms;
@@ -47,18 +42,21 @@
 
   &__img {
     width: 100%;
-    border-radius: 10%;
+    height: 100%;
+    border-radius: 2%;
   }
   &__details {
-    opacity: 0;
+    opacity: 1;
+    transform: scale(0) rotate(360deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     position: absolute;
     overflow: hidden;
     height: 100%;
+    border-radius: 2%;
     transition: opacity 500ms, transform 500ms;
     background: rgba(22, 116, 100, 0.5);
-  }
-  &__details_hidden {
-    display: none;
   }
 }
 
@@ -68,16 +66,7 @@
     &__list {
       &-item {
         flex-basis: 40%;
-        &:hover {
-          transform: scale(1.5);
-          & .courts__details {
-            transform: scale(0.5) translateY(-50%);
-          }
-        }
       }
-    }
-    &__details_hidden {
-      display: block;
     }
   }
 }
@@ -88,12 +77,6 @@
     &__list {
       &-item {
         flex-basis: 48%;
-        &:hover {
-          transform: scale(1.5);
-          & .courts__details {
-            transform: scale(0.5) translateY(-50%);
-          }
-        }
       }
     }
   }

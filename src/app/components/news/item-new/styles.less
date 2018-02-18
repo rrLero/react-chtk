@@ -1,0 +1,40 @@
+@import "../../../../public/less/variables";
+
+.news-details {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  &__text {
+    flex-basis: 100%;
+    padding: 10px;
+    text-align: center;
+    &_text {
+      margin: 0;
+      color: #888;
+      font-size: @font-size-s;
+      flex-grow: 1;
+      box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
+    }
+  }
+  &:hover {
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 5px;
+  }
+  &_shown {
+    transform: scale(1.1);
+    box-shadow: 10px 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.45);
+  }
+}
+
+
+.list-item {
+  flex-basis: 100%;
+  margin-bottom: 2px;
+  box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
+  border-radius: 5px;
+  background: @primary-color;
+  transition: transform 300ms;
+  cursor: pointer;
+}
+
+

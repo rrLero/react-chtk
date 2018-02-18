@@ -3,20 +3,19 @@ import '../public/less/main.less';
 import '../public/less/normalize.less';
 
 import React from 'react';
+import {Provider} from 'react-redux';
+import {Switch, Route, Redirect, BrowserRouter} from 'react-router-dom';
+import store from "../store";
+import Main from './components/main';
 
-import {AppIntro} from "./components/intro/index";
-import {AppHeader} from "./components/header/index";
-import {AppCourts} from "./components/courts/index";
-import {AppNews} from "./components/news/index";
 
 const App = () => {
     return (
-        <section>
-            <AppHeader />
-            <AppIntro />
-            <AppCourts />
-            <AppNews />
-        </section>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Route component={Main}/>
+            </BrowserRouter>
+        </Provider>
     )
 };
 

@@ -2,13 +2,15 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const webpack = require('webpack');
 
 module.exports = {
     cache: true,
     entry: ['babel-polyfill','./src/index.js'],
     output: {
         filename: '[name].bundle.[hash].js',
-        path: path.resolve(__dirname, '../dist')
+        path: path.resolve(__dirname, '../dist'),
+        publicPath: '/'
     },
     resolve: {
         extensions: [
@@ -30,7 +32,13 @@ module.exports = {
             {
                 reload: false
             }),
-        new ExtractTextPlugin("styles.css")
+        new ExtractTextPlugin("styles.css"),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+            }
+        })
+
     ],
     module: {
         rules: [
@@ -58,7 +66,7 @@ module.exports = {
                 use: {
                     loader: 'file-loader',
                     options: {
-                        name: "./img/[name].[ext]"
+                        name: "./images/[name].[ext]"
                     }
                 }
             }

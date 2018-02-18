@@ -82,4 +82,4 @@ class AppHeader extends React.Component<Props, StateHeader> {
     }
 }
 
-export {AppHeader};
+export default AppHeader;

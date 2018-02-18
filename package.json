@@ -1,13 +1,16 @@
 {
   "scripts": {
     "dev": "NODE_ENV=development webpack-dev-server --config config/webpack.config.dev.js",
-    "build": "rimraf dist && webpack --config config/webpack.config.js",
-    "prod": " rimraf dist && NODE_ENV=production webpack --config config/webpack.config.prod.js",
-    "flow-typed": "rimraf flow-typed/npm && flow-typed install"
+    "build": "npm run check && rimraf dist && webpack --config config/webpack.config.js",
+    "prod": "npm run check && rimraf dist && NODE_ENV=production webpack --config config/webpack.config.prod.js",
+    "flow-typed": "rimraf flow-typed/npm && flow-typed install",
+    "postinstall": "rimraf dist && NODE_ENV=production webpack --config config/webpack.config.prod.js",
+    "check": "flow check"
   },
   "devDependencies": {
     "babel-core": "6.26.0",
     "babel-loader": "7.1.2",
+    "babel-plugin-transform-class-properties": "6.24.1",
     "babel-plugin-transform-flow-strip-types": "6.22.0",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-polyfill": "6.26.0",
@@ -27,13 +30,20 @@
     "less-loader": "4.0.5",
     "rimraf": "2.6.2",
     "style-loader": "0.19.1",
+    "svg-inline-loader": "0.8.0",
     "uglifyjs-webpack-plugin": "1.1.6",
     "webpack": "3.10.0",
     "webpack-dev-server": "2.11.1",
     "webpack-merge": "4.1.1"
   },
   "dependencies": {
+    "material-design-icons": "^3.0.1",
     "react": "16.2.0",
-    "react-dom": "16.2.0"
+    "react-dom": "16.2.0",
+    "react-redux": "5.0.6",
+    "react-router-dom": "4.2.2",
+    "redux": "3.7.2",
+    "redux-logger": "3.0.6",
+    "redux-thunk": "2.2.0"
   }
 }

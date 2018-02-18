@@ -1,0 +1,7 @@
+// @flow
+
+export const GET_NEWS_REQUEST = 'GET_NEWS_REQUEST';
+export const GET_NEWS_SUCCESS = 'GET_NEWS_SUCCESS';
+export const GET_NEWS_FAILURE = 'GET_NEWS_FAILURE';
+export const SET_ACTIVE_NEW = 'SET_ACTIVE_NEW';
+export const CHANGE_ACTIVE_NEW = 'CHANGE_ACTIVE_NEW';

@@ -13,12 +13,10 @@
     align-items: flex-end;
     list-style-type: none;
     padding: @main-padding;
-    padding-top: 0;
     margin: 0;
   }
   &__nav-item {
     text-transform: uppercase;
-    padding-top: @main-padding-top;
   }
   &_hidden {
     max-height: 0;
@@ -28,7 +26,7 @@
   &__nav-link {
     color: @secondary-text-color;
     transition: .5s;
-    font-size: @font-size-xs;
+    font-size: @font-size-m;
     text-decoration: none;
     &:hover {
       color: @link-color-hover;
@@ -50,7 +48,7 @@
       flex-direction: row;
     }
     &__nav-item {
-      padding-right: 10px;
+      padding-right: 50px;
     }
   }
 }
