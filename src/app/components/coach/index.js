@@ -8,12 +8,15 @@ const Coach = ({image, name, className, tel}: Props) => {
     return (
         <li className={className + " coach"}>
             <img src={require('./'+ image )} className="coach__image" alt="coach"/>
-                <div className="coach__team-shadow-overlay">
-                    <div className="coach__team-shadow-overlay-inner">
+            <a href="#coaches" onClick={(e) => e.preventDefault()}>
+                <section className="coach__team-shadow-overlay">
+                    <section className="coach__team-shadow-overlay-inner">
                         <h4 className="coach__name">{name}</h4>
                         <h4 className="coach__name">{tel}</h4>
-                    </div>
-                </div>
+                    </section>
+                </section>
+            </a>
+
         </li>
     )
 };

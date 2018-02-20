@@ -6,13 +6,13 @@ type Props = {
     date: string,
     title: string,
     className: boolean,
-    onClick: () => void
+    setActiveNew: () => void
 }
 
-const ItemNew = ({date, title, className, onClick}: Props) => {
+const ItemNew = ({date, title, className, setActiveNew}: Props) => {
     return (
         <li className={className ? 'list-item ' : 'list-item news-details_shown'}>
-            <section className="news-details" onClick={onClick}>
+            <section className="news-details" onClick={setActiveNew}>
                 <p className="news-details__text news-details__text_data">{date.replace(/\//g, '.')}</p>
                 <p className="news-details__text">{title.replace(/\//g, '.')}</p>
             </section>

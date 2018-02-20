@@ -1,0 +1,27 @@
+@import "../../../../public/less/variables";
+
+.button {
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  margin: 0;
+  &__icon {
+    color: @primary-color;
+    font-size: @font-size-xl;
+  }
+  &__svg {
+    transition: transform 0.5s;
+    &_first.toggle {
+      transform: rotate(45deg) translate(3px, -5px) scaleX(1.25);
+    }
+    &_second.toggle {
+      transform: translateX(12px) scaleX(0);
+    }
+    &_third.toggle {
+      transform: rotate(-45deg) translate(-16px, -4px) scaleX(1.25);
+    }
+  }
+}

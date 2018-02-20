@@ -1,12 +1,13 @@
 // @flow
 
-import {GET_NEWS_SUCCESS, GET_NEWS_REQUEST, GET_NEWS_FAILURE, SET_ACTIVE_NEW, CHANGE_ACTIVE_NEW} from './constants';
+import {GET_NEWS_SUCCESS, GET_NEWS_REQUEST, GET_NEWS_FAILURE, SET_ACTIVE_NEW, CHANGE_ACTIVE_NEW, TURN_OFF_TIMER} from './constants';
 import type {NewsState} from "./typedef";
 import type {OneNew} from "../../../typedef";
 
 const DEFAULT_STATE: NewsState = {
     news: [],
-    activeNew: {}
+    activeNew: {},
+    isTimerOn: true
 };
 
 type Action =
@@ -14,6 +15,7 @@ type Action =
     | { type: 'GET_NEWS_SUCCESS', response: Array<OneNew> }
     | { type: 'GET_NEWS_FAILURE', error: string }
     | { type: 'SET_ACTIVE_NEW', activeNew: OneNew }
+    | { type: 'TURN_OFF_TIMER', isTimerOn: Boolean }
 
 export default (state: NewsState = DEFAULT_STATE, action: Action): NewsState => {
 
@@ -42,6 +44,13 @@ export default (state: NewsState = DEFAULT_STATE, action: Action): NewsState => 
         return {
             ...state,
             activeNew: action.activeNew
+        };
+    }
+
+    if (action.type === TURN_OFF_TIMER) {
+        return {
+            ...state,
+            isTimerOn: false
         };
     }
 

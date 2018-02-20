@@ -4,6 +4,7 @@ import type {OneNew} from "../../../typedef";
 
 export type NewsState = {
     news: Array<OneNew>,
-    activeNew: OneNew
+    activeNew: OneNew,
+    isTimerOn: boolean
 }
 
