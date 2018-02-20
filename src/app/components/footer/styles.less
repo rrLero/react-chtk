@@ -1,0 +1,54 @@
+@import "../../../public/less/variables";
+.footer__svg {
+  &:hover {
+    & path {
+      fill: blue;
+    }
+
+  }
+}
+.footer {
+  padding: @all-page-padding;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: #333;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  &__icons-list {
+    flex-basis: 200px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    &-item {
+      list-style-type: none;
+      &-link {
+        font-size: @font-size-m;
+        color: @secondary-text-color;
+        transition: .5s;
+        &:hover {
+          color: @link-color-hover;
+        }
+      }
+    }
+  }
+  &__copyright {
+    flex-basis: 200px;
+    color: @content-color;
+    font-size: @font-size-xs;
+  }
+}
+
+
+@media @desktop {
+  .footer {
+    padding: @all-page-padding-desktop;
+  }
+}
+
+@media @tablet {
+  .footer {
+    padding: @all-page-padding-tablet;
+  }
+}

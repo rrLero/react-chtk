@@ -45,14 +45,14 @@ class AppNews extends React.Component<Props> {
         return (
             <section className="news" id="news">
                 <h1 className="news__title">Новости</h1>
-                <CurrentNew
-                    activeNew={activeNew}
-                />
                 <NewsList
                     news={news}
                     activeNew={activeNew}
                     setActiveNew={setActiveNew}
                     timerId={this.timerId}
+                />
+                <CurrentNew
+                    activeNew={activeNew}
                 />
             </section>
         )

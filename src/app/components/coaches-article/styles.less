@@ -1,0 +1,29 @@
+@import "../../../public/less/variables";
+
+.coaches-article {
+  padding: @all-page-padding;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: url("ball100.png") no-repeat -5% 80%, url("ball100.png") no-repeat 105% 10%,#e5e9ee ;
+  background-size: 10%, 10%;
+  &__title {
+    flex-basis: 100%;
+    color: @main-text-color;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+}
+
+@media @desktop {
+  .coaches-article {
+    padding: @all-page-padding-desktop;
+  }
+}
+
+@media @tablet {
+  .coaches-article {
+    padding: @all-page-padding-tablet;
+  }
+}

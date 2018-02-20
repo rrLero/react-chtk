@@ -7,6 +7,9 @@ import AppIntro from "../intro/index";
 import AppHeader from "../header/index";
 import AppCourts from "../courts/index";
 import AppNews from "../news/index";
+import CoachesArticle from "../coaches-article";
+import Partners from "../partners";
+import Footer from "../footer";
 
 import type {ContextRouter} from 'react-router-dom';
 
@@ -27,6 +30,9 @@ const Main = (props: Props) => {
             <AppIntro/>
             <AppCourts/>
             <AppNews/>
+            <CoachesArticle/>
+            <Partners/>
+            <Footer/>
         </section>
     )
 };

@@ -6,7 +6,10 @@ const webpack = require('webpack');
 
 module.exports = {
     cache: true,
-    entry: ['babel-polyfill','./src/index.js'],
+    entry: {
+        app: './src/index.js',
+        polyfill: 'babel-polyfill',
+    },
     output: {
         filename: '[name].bundle.[hash].js',
         path: path.resolve(__dirname, '../dist'),

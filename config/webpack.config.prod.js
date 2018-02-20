@@ -7,7 +7,7 @@ const webpack = require('webpack');
 module.exports = webpackMerge(commonConfig, {
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'common'
+            name: ['app','polyfill','common']
         }),
         new UglifyJsPlugin({
             test: /\.js($|\?)/i

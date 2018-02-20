@@ -8,12 +8,14 @@
     flex-basis: 100%;
     padding: 10px;
     text-align: center;
-    &_text {
-      margin: 0;
-      color: #888;
+    color: @sub-title-color;
+    font-size: @font-size-m;
+    margin: 0;
+    &_data {
+      font-style: italic;
       font-size: @font-size-s;
-      flex-grow: 1;
-      box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
+      text-align: right;
+      color: @text-color;
     }
   }
   &:hover {
@@ -26,7 +28,6 @@
   }
 }
 
-
 .list-item {
   flex-basis: 100%;
   margin-bottom: 2px;
@@ -36,5 +37,4 @@
   transition: transform 300ms;
   cursor: pointer;
 }
-
 

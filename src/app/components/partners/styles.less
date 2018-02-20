@@ -1,0 +1,45 @@
+@import "../../../public/less/variables";
+
+.partners {
+  background: inherit;
+}
+
+.partners {
+  padding: @all-page-padding;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  //background: url(../../images/Polygon.png) no-repeat left 85%, url(../../images/Polygon1.png) no-repeat right 15%;
+  //background-size: 13%, 11%;
+  &__title {
+    flex-basis: 100%;
+    color: @main-text-color;
+    font-weight: 400;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  &__image {
+    margin-top: 30px;
+    max-width: 100%;
+  }
+  &__sub-title {
+    flex-basis: 100%;
+    font-size: @font-size-l;
+    font-weight: 400;
+    letter-spacing: 5px;
+    text-align: center;
+  }
+}
+
+
+@media @desktop {
+  .partners {
+    padding: @all-page-padding-desktop;
+  }
+}
+
+@media @tablet {
+  .partners {
+    padding: @all-page-padding-tablet;
+  }
+}

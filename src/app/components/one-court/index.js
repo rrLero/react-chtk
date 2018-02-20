@@ -11,7 +11,7 @@ const OneCourt = ({address, name, phones, type, description, imageUrl}: Props) =
         <li className="courts__list-item">
             <section className="courts__details">
                 <p className="text text_white text_margin">{address}</p>
-                <p className="text text_white text_margin courts__details_hidden">{description}</p>
+                <p className="text text_white text_margin text_hidden">{description}</p>
                 <p className="text text_white text_margin">{name}</p>
                 <p className="text text_white text_margin">{phones}</p>
                 <p className="text text_white text_margin">{type}</p>

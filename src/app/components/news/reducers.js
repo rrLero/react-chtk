@@ -26,7 +26,7 @@ export default (state: NewsState = DEFAULT_STATE, action: Action): NewsState => 
     if (action.type === GET_NEWS_SUCCESS) {
         return {
             ...state,
-            news: action.response.slice(0,5),
+            news: action.response.slice(0,7),
             activeNew: action.response[0]
         };
     }

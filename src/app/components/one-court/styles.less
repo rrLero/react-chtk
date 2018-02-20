@@ -1,2 +1,31 @@
 @import "../../../public/less/variables";
 
+.text {
+  color: @text-color;
+  font-size: @font-size-xs;
+  text-align: center;
+  margin: 5px;
+  &_white {
+    color: @primary-color;
+  }
+  &_hidden {
+    display: none;
+  }
+}
+
+@media @desktop {
+  .text {
+    font-size: @font-size-s;
+    margin: 10px 20px;
+    &_hidden {
+      display: block;
+    }
+  }
+}
+
+@media @tablet {
+  .text {
+    font-size: @font-size-xs;
+    margin: 3px;
+  }
+}
