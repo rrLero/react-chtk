@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {setToggleMenu} from "./actions";
 import NavButton from './nav-button';
 import MenuItem from './menu-item';
-
+import {NavLink} from 'react-router-dom';
 
 type Props = {
     isToggle: boolean,
@@ -21,6 +21,9 @@ const AppHeader = ({isToggle, setToggleMenu}: Props) => {
             </aside>
             <nav className={classHidden} id="navigation-bar">
                 <ul className={isToggle ? "navigation-bar__nav-list isToggle" : "navigation-bar__nav-list"} >
+                    <NavLink to={'/children'} className={'padding-link'}>
+                        CHILDREN
+                    </NavLink>
                     <MenuItem
                         hash={'#home'}
                         classItem={"navigation-bar__nav-item"}

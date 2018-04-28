@@ -10,13 +10,13 @@ const Coaches = ({className}: Props) => {
         <ul className={className + " coaches"}>
             <Coach
                 name={'Геннадий'}
-                image={'gena.png'}
+                image={'gena.jpg'}
                 className={'coaches__coach'}
                 tel={'(067) 470 76 76'}
             />
             <Coach
                 name={'Алексей'}
-                image={'aleksey.png'}
+                image={'aleksey.jpg'}
                 className={'coaches__coach'}
                 tel={'(093) 500 38 00'}
             />

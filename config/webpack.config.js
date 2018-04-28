@@ -13,7 +13,7 @@ module.exports = {
     output: {
         filename: '[name].bundle.[hash].js',
         path: path.resolve(__dirname, '../dist'),
-        publicPath: '/'
+        publicPath: process.env.NODE_ENV === 'production' ? 'https://www.chtk.com.ua/' : '/'
     },
     resolve: {
         extensions: [
@@ -38,7 +38,8 @@ module.exports = {
         new ExtractTextPlugin("styles.css"),
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+                NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+                API_KEY: JSON.stringify(process.env.API_KEY)
             }
         })
 
