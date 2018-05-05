@@ -4,30 +4,32 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
-import {getDataRating} from '../../services/actions';
+import GetDataRatingController from '../../../../controllers/get-data-rating';
+
 import Spinner from 'material-ui/Progress/CircularProgress';
 
-import type {Connector} from 'react-redux';
-
 import RatingTableView from '../../views/rating-table';
+
+import type {WithStyleConnector} from '../../../../typedef';
 
 type OwnProps = {
     filter: Array<number>
 };
 
 type DispatchProps = {
-    getDataRating: () => void
+
 };
 
+type Data = Array<{
+    avatarUrl: string,
+    coachId: string,
+    id: string,
+    name: string,
+    points: number,
+    year: number
+}>;
+
 type StateProps = {
-    data: Array<{
-        avatarUrl: string,
-        coachId: string,
-        id: string,
-        name: string,
-        points: number,
-        year: number
-    }>,
     isLoading: boolean
 };
 
@@ -35,34 +37,38 @@ type Props = DispatchProps & StateProps & OwnProps;
 
 export class RatingTableController extends React.Component<Props> {
 
-    componentDidMount() {
-        this.props.getDataRating();
-    }
+    filterData: (Data) => Data = data => {
+        const {filter} = this.props;
+        return data.filter(el => {
+            const nowYear = new Date(Date.now()).getFullYear();
+            return (nowYear - el.year) >= filter[0] && (nowYear - el.year) < filter[1];
+        });
+    };
 
     render() {
-        const {data, isLoading} = this.props;
+        const {isLoading} = this.props;
         return (
-            !data ? isLoading ? <Spinner/> : null : (
-                <RatingTableView
-                    rating={data}
-                />
-            )
-        )
+            <GetDataRatingController
+                view={({data}) => (
+                    !data ? isLoading ? <Spinner/> : null : (
+                        <RatingTableView
+                            rating={this.filterData(data)}
+                        />
+                    )
+                )}
+            />
+        );
     }
 }
 
 const mapStateToProps = (state, props) => ({
-    data: state.rating.dataRating && state.rating.dataRating.filter(el => {
-        const nowYear = new Date(Date.now()).getFullYear();
-        return (nowYear - el.year) >= props.filter[0] &&  (nowYear - el.year) < props.filter[1]
-    }),
     isLoading: state.rating.isLoading
 });
 
 const mapDispatchToProps = {
-    getDataRating
+
 };
 
-const connector: Connector<OwnProps, Props> = connect(mapStateToProps, mapDispatchToProps);
+const connector: WithStyleConnector<OwnProps, Props> = connect(mapStateToProps, mapDispatchToProps);
 
 export default withRouter(connector(RatingTableController));

@@ -1,14 +1,20 @@
 // @flow
 
 import React from 'react';
-import {Switch, Route, Redirect} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 
-import AdminAddPlayerController from './controllers/addPlayer';
+import AdminCoachesController from './controllers/coaches';
+import AdminPlayersController from './controllers/players';
+import AdminView from './views';
+
 
 const Admin = () => {
     return (
         <Switch>
-            <Route path="/admin/add" component={AdminAddPlayerController}/>
+            <AdminView>
+                <Route path="/admin/players" component={AdminPlayersController}/>
+                <Route path="/admin/coaches" component={AdminCoachesController}/>
+            </AdminView>
         </Switch>
     );
 };

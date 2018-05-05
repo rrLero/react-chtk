@@ -4,11 +4,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
-import {getSchedule} from '../../services/actions';
+import {getSchedule} from '../../../admin/services/actions';
 
-import type {Connector} from 'react-redux';
+import type {WithStyleConnector} from "../../../../typedef";
 
 import ScheduleView from '../../views/schedule';
+
 
 type OwnProps = {
 
@@ -47,13 +48,13 @@ export class ScheduleController extends React.Component<Props> {
 }
 
 const mapStateToProps = state => ({
-    data: state.rating.schedule
+    data: state.admin.schedule
 });
 
 const mapDispatchToProps = {
     getSchedule
 };
 
-const connector: Connector<OwnProps, Props> = connect(mapStateToProps, mapDispatchToProps);
+const connector: WithStyleConnector<OwnProps, Props> = connect(mapStateToProps, mapDispatchToProps);
 
 export default withRouter(connector(ScheduleController));

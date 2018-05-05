@@ -1,18 +1,17 @@
 // @flow
 
-import {CALL_API} from '../../../api/index';
 import {
     CHANGE_ACTIVE_NEW, GET_NEWS_FAILURE, GET_NEWS_REQUEST, GET_NEWS_SUCCESS, SET_ACTIVE_NEW,
     TURN_OFF_TIMER
 } from './constants';
 
-import type {Dispatch} from 'redux';
 import {Db} from "../../shared/db";
+import type {ApiDispatch, Dispatch} from '../../../store/typedef';
 
-export const getNews = () => (dispatch: Dispatch) => {
+export const getNews = () => (dispatch: ApiDispatch) => {
 
     return dispatch({
-        [CALL_API]: {
+        CALL_API: {
             types: [GET_NEWS_REQUEST, GET_NEWS_SUCCESS, GET_NEWS_FAILURE],
             endpoint: () => Db.listNews()
         }

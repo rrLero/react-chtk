@@ -10,6 +10,8 @@ const DEFAULT_STATE: NewsState = {
     isTimerOn: true
 };
 
+export type State = NewsState;
+
 type Action =
     | { type: 'GET_NEWS_REQUEST' }
     | { type: 'GET_NEWS_SUCCESS', response: Array<OneNew> }
@@ -17,7 +19,7 @@ type Action =
     | { type: 'SET_ACTIVE_NEW', activeNew: OneNew }
     | { type: 'TURN_OFF_TIMER', isTimerOn: Boolean }
 
-export default (state: NewsState = DEFAULT_STATE, action: Action): NewsState => {
+export default (state: State = DEFAULT_STATE, action: Action): NewsState => {
 
     if (action.type === GET_NEWS_REQUEST) {
         return {

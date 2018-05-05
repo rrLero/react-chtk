@@ -2,7 +2,7 @@
 
 import {SET_TOGGLE_MENU} from './constants';
 
-import type {Dispatch} from 'redux';
+import type {Dispatch} from '../../../store/typedef';
 
 
 export const setToggleMenu = () => (dispatch: Dispatch) => dispatch({

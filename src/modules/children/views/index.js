@@ -9,7 +9,7 @@ import AppBarChildren from './app-bar';
 import styles from './styles';
 
 import type {WithStyleConnector} from '../../../typedef';
-import type {Node} from 'react'
+import type {Node} from 'react';
 
 type OwnProps = {
     children: Node

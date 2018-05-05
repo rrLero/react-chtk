@@ -7,10 +7,12 @@ const DEFAULT_STATE: ToggleState = {
     isToggle: false,
 };
 
+export type State = ToggleState;
+
 type Action =
     | { type: 'SET_TOGGLE_MENU'}
 
-export default (state: ToggleState = DEFAULT_STATE, action: Action): ToggleState => {
+export default (state: State = DEFAULT_STATE, action: Action): ToggleState => {
 
     if (action.type === SET_TOGGLE_MENU) {
         return {

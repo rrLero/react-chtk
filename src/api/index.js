@@ -2,8 +2,6 @@ import urlResolver from './urlResolver';
 import {CONTENT_TYPE_JSON} from './const';
 import 'isomorphic-fetch';
 
-export const CALL_API = Symbol('Call API');
-
 const callApi = endpoint => endpoint()
     .then(response => {
         return response.json().then(json => {
@@ -15,7 +13,7 @@ const callApi = endpoint => endpoint()
     });
 
 export default store => next => action => {
-    const callAPI = action[CALL_API];
+    const callAPI = action.CALL_API;
     if (typeof callAPI === 'undefined') {
         return next(action);
     }
@@ -26,7 +24,7 @@ export default store => next => action => {
 
     const actionWith = data => {
         const finalAction = {...action, ...data};
-        delete finalAction[CALL_API];
+        delete finalAction.CALL_API;
         return finalAction;
     };
 
