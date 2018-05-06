@@ -3,18 +3,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {getPlayersList} from '../../modules/admin/services/actions';
+import {getTournamentsList} from '../../modules/admin/services/actions';
 
 import type {Node} from 'react';
 import type {Data} from './typedef';
-import type {ApiDispatcher} from '../../store/typedef';
 
 type OwnProps = {
     view: ({data: Array<Data>}) => Node
 };
 
 type DispatchProps = {
-    getPlayersList: () => ApiDispatcher
+    getTournamentsList: () => void
 };
 
 type StateProps = {
@@ -23,10 +22,10 @@ type StateProps = {
 
 type Props = DispatchProps & StateProps & OwnProps;
 
-export class GetPlayersController extends React.Component<Props> {
+export class GetToursController extends React.Component<Props> {
 
     componentDidMount() {
-        this.props.getPlayersList();
+        this.props.getTournamentsList();
     }
 
     render() {
@@ -36,13 +35,13 @@ export class GetPlayersController extends React.Component<Props> {
 }
 
 const mapStateToProps = state => ({
-    data: state.admin.players
+    data: state.admin.tours
 });
 
 const mapDispatchToProps = {
-    getPlayersList
+    getTournamentsList
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default connector(GetPlayersController);
+export default connector(GetToursController);

@@ -3,6 +3,7 @@
 import React from 'react';
 
 import AppBarAdmin from './app-bar';
+import LoginController from '../controllers/login';
 
 import type {Node} from 'react';
 
@@ -26,7 +27,9 @@ class AdminView extends React.Component<Props, State> {
         const {children} = this.props;
         return (
             <AppBarAdmin>
-                {children}
+                <LoginController
+                    view={() => children}
+                />
             </AppBarAdmin>
         );
     }
