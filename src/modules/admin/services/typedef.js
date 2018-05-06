@@ -18,7 +18,8 @@ export type ResponseTour = {
         $oid: string
     },
     date: string,
-    [string]: string
+    name: string,
+    [string]: number
 };
 
 export type ResponseSchedule = {
@@ -27,7 +28,7 @@ export type ResponseSchedule = {
     },
     time: string,
     courts: Array<Array<string>>
-}
+};
 
 export type ResponseDataRating = {
     name: string,
@@ -36,4 +37,14 @@ export type ResponseDataRating = {
     coachId: string,
     avatarUrl: string,
     points: string
-}
+};
+
+export type ResponseCoach = {
+    _id: {
+        $oid: string
+    },
+    name: string,
+    lastName: string,
+    year: number,
+    avatarUrl: string
+};

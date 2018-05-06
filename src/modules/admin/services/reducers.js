@@ -21,23 +21,35 @@ import {
     REMOVE_PLAYER_FAILURE,
     EDIT_PLAYER_SUCCESS,
     EDIT_PLAYER_REQUEST,
-    EDIT_PLAYER_FAILURE
+    EDIT_PLAYER_FAILURE,
+    ADD_COACH_SUCCESS,
+    ADD_COACH_REQUEST,
+    ADD_COACH_FAILURE,
+    REMOVE_COACH_SUCCESS,
+    REMOVE_COACH_REQUEST,
+    REMOVE_COACH_FAILURE,
+    EDIT_COACH_SUCCESS,
+    EDIT_COACH_REQUEST,
+    EDIT_COACH_FAILURE,
+    LOGIN
 } from './constants';
 
 const DEFAULT_STATE = {
     isLoading: false
 };
 
-import type {ResponsePlayers, ResponseSchedule, ResponseTour} from './typedef';
+import type {ResponsePlayers, ResponseSchedule, ResponseTour, ResponseCoach} from './typedef';
 
 export type State = {
     isLoading: boolean,
-    players?: Array<ResponsePlayers>
+    players?: Array<ResponsePlayers>,
+    coaches?: Array<ResponseCoach>,
+    tours?: Array<ResponseTour>
 };
 
 type Action =
     | { type: 'GET_COACHES_REQUEST' }
-    | { type: 'GET_COACHES_SUCCESS', response: Array<ResponsePlayers> }
+    | { type: 'GET_COACHES_SUCCESS', response: Array<ResponseCoach> }
     | { type: 'GET_COACHES_FAILURE', error: string }
     | { type: 'GET_PLAYERS_REQUEST' }
     | { type: 'GET_PLAYERS_SUCCESS', response: Array<ResponsePlayers> }
@@ -57,7 +69,17 @@ type Action =
     | { type: 'REMOVE_PLAYER_FAILURE', error: string }
     | { type: 'EDIT_PLAYER_REQUEST'}
     | { type: 'EDIT_PLAYER_SUCCESS', response: ResponsePlayers }
-    | { type: 'EDIT_PLAYER_FAILURE', error: string };
+    | { type: 'EDIT_PLAYER_FAILURE', error: string }
+    | { type: 'ADD_COACH_SUCCESS', response: ResponseCoach }
+    | { type: 'ADD_COACH_REQUEST' }
+    | { type: 'ADD_COACH_FAILURE', error: string }
+    | { type: 'REMOVE_COACH_REQUEST'}
+    | { type: 'REMOVE_COACH_SUCCESS', response: ResponseCoach }
+    | { type: 'REMOVE_COACH_FAILURE', error: string }
+    | { type: 'EDIT_COACH_REQUEST'}
+    | { type: 'EDIT_COACH_SUCCESS', response: ResponseCoach }
+    | { type: 'EDIT_COACH_FAILURE', error: string }
+    | { type: 'LOGIN', pass: string };
 
 
 const admin = (state: State = DEFAULT_STATE, action: Action): State => {
@@ -116,7 +138,7 @@ const admin = (state: State = DEFAULT_STATE, action: Action): State => {
     if (action.type === GET_TOURNAMENTS_SUCCESS) {
         return {
             ...state,
-            tournaments: action.response,
+            tours: action.response,
             isLoading: false
         };
     }
@@ -213,6 +235,79 @@ const admin = (state: State = DEFAULT_STATE, action: Action): State => {
         return {
             ...state,
             isLoading: false
+        };
+    }
+
+    if (action.type === ADD_COACH_REQUEST) {
+        return {
+            ...state,
+            isLoading: true
+        };
+    }
+
+    if (action.type === ADD_COACH_FAILURE) {
+        return {
+            ...state,
+            isLoading: false
+        };
+    }
+
+    if (action.type === ADD_COACH_SUCCESS) {
+        return {
+            ...state,
+            coaches: [...state.coaches || [], {...action.response}],
+            isLoading: false
+        };
+    }
+
+    if (action.type === REMOVE_COACH_FAILURE) {
+        return {
+            ...state,
+            isLoading: false
+        };
+    }
+
+    if (action.type === REMOVE_COACH_REQUEST) {
+        return {
+            ...state,
+            isLoading: true
+        };
+    }
+
+    if (action.type === REMOVE_COACH_SUCCESS) {
+        const id = action.response._id.$oid;
+        return {
+            ...state,
+            coaches: [...state.coaches || []].filter(el => el._id.$oid !== id),
+            isLoading: false
+        };
+    }
+
+    if (action.type === EDIT_COACH_FAILURE) {
+        return {
+            ...state,
+            isLoading: false
+        };
+    }
+
+    if (action.type === EDIT_COACH_REQUEST) {
+        return {
+            ...state,
+            isLoading: true
+        };
+    }
+
+    if (action.type === EDIT_COACH_SUCCESS) {
+        return {
+            ...state,
+            isLoading: false
+        };
+    }
+
+    if (action.type === LOGIN) {
+        return {
+            ...state,
+            isLogin: action.pass === 'rrlero'
         };
     }
 

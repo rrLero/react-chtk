@@ -5,7 +5,7 @@ export type Data = {
         $oid: string
     },
     name: string,
-    "lastName": string,
+    lastName: string,
     coach: {
         id: string
     },

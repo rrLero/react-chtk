@@ -10,11 +10,20 @@ import {
     GET_TOURNAMENTS_FAILURE, GET_TOURNAMENTS_REQUEST, GET_TOURNAMENTS_SUCCESS,
     EDIT_PLAYER_FAILURE, EDIT_PLAYER_REQUEST, EDIT_PLAYER_SUCCESS,
     ADD_PLAYER_FAILURE, ADD_PLAYER_REQUEST, ADD_PLAYER_SUCCESS,
-    REMOVE_PLAYER_FAILURE, REMOVE_PLAYER_REQUEST, REMOVE_PLAYER_SUCCESS
+    REMOVE_PLAYER_FAILURE, REMOVE_PLAYER_REQUEST, REMOVE_PLAYER_SUCCESS,
+    EDIT_COACH_FAILURE, EDIT_COACH_REQUEST, EDIT_COACH_SUCCESS,
+    ADD_COACH_FAILURE, ADD_COACH_REQUEST, ADD_COACH_SUCCESS,
+    REMOVE_COACH_FAILURE, REMOVE_COACH_REQUEST, REMOVE_COACH_SUCCESS,
+    EDIT_TOUR_FAILURE, EDIT_TOUR_REQUEST, EDIT_TOUR_SUCCESS,
+    ADD_TOUR_FAILURE, ADD_TOUR_REQUEST, ADD_TOUR_SUCCESS,
+    REMOVE_TOUR_FAILURE, REMOVE_TOUR_REQUEST, REMOVE_TOUR_SUCCESS,
+    LOGIN
 } from './constants';
 
-import type {ApiDispatch, GetState} from '../../../store/typedef';
+import type {ApiDispatch, GetState, Dispatch, Dispatcher} from '../../../store/typedef';
 import type {Player} from '../views/plyer-detail/typedef';
+import type {Coach} from '../views/coach-detail/typedef';
+import type {ResponseTour as Tour} from './typedef';
 
 export const getCoachesList = () => (dispatch: ApiDispatch) => {
     return dispatch({
@@ -120,5 +129,96 @@ export const removePlayer = (player: Player) => (dispatch: ApiDispatch) => {
             ],
             endpoint: () => remove(`players/${id}`)
         }
+    });
+};
+
+export const editCoach = (coach: Coach) => (dispatch: ApiDispatch) => {
+    const {id, ...rest} = coach;
+    return dispatch({
+        CALL_API: {
+            types: [
+                EDIT_COACH_REQUEST,
+                EDIT_COACH_SUCCESS,
+                EDIT_COACH_FAILURE
+            ],
+            endpoint: () => put(`coaches/${id}`, {$set: {...rest}})
+        }
+    });
+};
+
+export const addCoach = (coach: Coach) => (dispatch: ApiDispatch) => {
+    const {id, ...rest} = coach;
+    return dispatch({
+        CALL_API: {
+            types: [
+                ADD_COACH_REQUEST,
+                ADD_COACH_SUCCESS,
+                ADD_COACH_FAILURE
+            ],
+            endpoint: () => post('coaches', {...rest})
+        }
+    });
+};
+
+export const removeCoach = (coach: Coach) => (dispatch: ApiDispatch) => {
+    const {id} = coach;
+    return dispatch({
+        CALL_API: {
+            types: [
+                REMOVE_COACH_REQUEST,
+                REMOVE_COACH_SUCCESS,
+                REMOVE_COACH_FAILURE
+            ],
+            endpoint: () => remove(`coaches/${id}`)
+        }
+    });
+};
+
+export const editTour = (tour: Tour) => (dispatch: ApiDispatch) => {
+    const {_id, ...rest} = tour;
+    return dispatch({
+        CALL_API: {
+            types: [
+                EDIT_TOUR_REQUEST,
+                EDIT_TOUR_SUCCESS,
+                EDIT_TOUR_FAILURE
+            ],
+            endpoint: () => put(`tournaments/${_id.$oid}`, {$set: {...rest}})
+        }
+    });
+};
+
+export const addTour = (tour: Tour) => (dispatch: ApiDispatch) => {
+    const {_id, ...rest} = tour;
+    return dispatch({
+        CALL_API: {
+            types: [
+                ADD_TOUR_REQUEST,
+                ADD_TOUR_SUCCESS,
+                ADD_TOUR_FAILURE
+            ],
+            endpoint: () => post('tournaments', {...rest})
+        }
+    });
+};
+
+export const removeTour = (tour: Tour) => (dispatch: ApiDispatch) => {
+    const {_id} = tour;
+    return dispatch({
+        CALL_API: {
+            types: [
+                REMOVE_TOUR_REQUEST,
+                REMOVE_TOUR_SUCCESS,
+                REMOVE_TOUR_FAILURE
+            ],
+            endpoint: () => remove(`tournaments/${_id.$oid}`)
+        }
+    });
+};
+
+export const login = (pass: string): Dispatcher => (dispatch: Dispatch) => {
+    return dispatch({
+        type: LOGIN,
+        pass
     });
 };
