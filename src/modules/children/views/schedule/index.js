@@ -2,90 +2,93 @@
 
 import React from 'react';
 import {withStyles} from 'material-ui/styles';
-import {withRouter} from 'react-router-dom';
-import {NavLink} from 'react-router-dom';
 
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
 
 import styles from './styles';
 
 import type {WithStyleConnector} from '../../../../typedef';
+import type {ScheduleGoogleItem} from '../../services/typedef';
 
 type OwnProps = {
-    tournament: Array<{time: string, courts: Array<Array<string>>}>,
-    time: string
+    tournament: Array<{ time: string, courts: Array<Array<string>> }>,
+    time: string,
+    scheduleGoogle: Array<ScheduleGoogleItem>,
+    qnt: number
 };
 
 type WithProps = {
     classes: $Call<typeof styles>
 };
 
-type State = {
-
-};
+type State = {};
 
 type Props = OwnProps & WithProps;
 
 class ScheduleChildren extends React.Component<Props, State> {
 
+    getTimeString = (date: number) => {
+        const hours = `0${new Date(date).getHours()}`.slice(-2);
+        const minutes = `0${new Date(date).getMinutes()}`.slice(-2);
+        return `${hours}-${minutes}`;
+    };
+
     render() {
-        const {classes, tournament, time} = this.props;
-        const keys = Object.keys(tournament[0]);
+        const {classes, qnt, scheduleGoogle} = this.props;
+        const hours = new Array(24).fill(0);
+        const nowDate = new Date();
+        nowDate.setHours(3, 0, 0, 0);
         return (
             <div className={classes.page}>
-                <Typography variant={'subheading'}>
-                    <a
-                        href={'https://docs.google.com/spreadsheets/d/1wUom5DBYVWXZes-_j6bBnUHKV_p03AiGKi60knAKZHQ/edit?usp=sharing'}
-                        className={classes.link}
-                        target="_blank"
-                    >Сетки до 14 лет</a>
-                </Typography>
-                <Typography variant={'subheading'}>
-                    <a
-                        href={'https://docs.google.com/spreadsheets/d/1c3HFge-cFCZSXTspRArrXmGdVy9NhFCOFeq7dd4ccQo/edit?usp=sharing'}
-                        className={classes.link}
-                        target="_blank"
-                    >Сетки до 11 лет
-                    </a>
-                </Typography>
-                <Typography variant={'subheading'}>
-                    <a
-                        href={'https://docs.google.com/spreadsheets/d/1nMEPiX2Gmg79AQT3JqecWM3Bt_8GAQIAvhMEEW3wsxM/edit?usp=sharing'}
-                        className={classes.link}
-                        target="_blank"
-                    >Сетки до 9 лет</a>
-                </Typography>
-                <Typography variant={'display3'}>
-                    Расписание {time}
-                </Typography>
-                <Paper className={classes.root}>
-                    <Table className={classes.table}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Время</TableCell>
-                                {tournament[0].courts.map((el, i) => {
-                                    return (<TableCell key={i}>Корт №{i + 1}</TableCell>)
-                                })}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {tournament.map((n,i) => {
-                                return (
-                                    <TableRow key={i}>
-                                        <TableCell>{n.time}</TableCell>
-                                        {n.courts.map((el, j) => {
-                                            return (
-                                                <TableCell key={n.time + j}>{el.join(' - ')}</TableCell>
-                                            )
-                                        })}
-                                    </TableRow>
-                                );
-                            })}
-                        </TableBody>
-                    </Table>
-                </Paper>
+                <div className={classes.courtsNames}>
+                    {new Array(qnt).fill(0).map((el, i) => (
+                        <Typography key={i}>
+                            КОРТ - {i + 1}
+                        </Typography>
+                    ))}
+                </div>
+                <div className={classes.timeCourts}>
+                    <div className={classes.hoursBlock}>
+                        {hours.map((el, i) => (
+                            <Typography key={i} className={classes.hour}>
+                                {`0${i}`.slice(-2)}: 00
+                            </Typography>
+                        ))}
+                    </div>
+                    <Paper className={classes.root}>
+                        {hours.map((el, i) => (
+                            <Divider
+                                className={classes.divider}
+                                key={i}
+                                style={{
+                                    top: i * 60,
+                                    width: '100%'
+                                }}
+                            />)
+                        )}
+                        {scheduleGoogle.map(el => (
+                            <Paper
+                                key={el.id}
+                                className={classes.schedule}
+                                style={{
+                                    top: (new Date(el.start.dateTime + 3 * 60 * 60 * 1000) - nowDate) / (60 * 1000),
+                                    right: `${100 - 100 * (el.court || 1) / qnt}%`,
+                                    width: `${Math.floor(100 / qnt)}%`,
+                                    height: (el.end.dateTime - el.start.dateTime) / (60 * 1000) - 3
+                                }}>
+                                <Typography>
+                                    {el.summary}
+                                </Typography>
+                                <Typography>
+                                    {this.getTimeString(el.start.dateTime)}{' - '}{this.getTimeString(el.end.dateTime)}
+                                </Typography>
+                            </Paper>
+                        ))}
+                    </Paper>
+                </div>
+
             </div>
         );
     }

@@ -1,8 +1,7 @@
 {
   "scripts": {
-    "dev": "cross-env API_KEY=ugayCTOgIaGrykFFeRCkmLBHn7eQ37Al NODE_ENV=development webpack-dev-server --config config/webpack.config.dev.js",
-    "build": "npm run check && rimraf dist && webpack --config config/webpack.config.js",
-    "prod": "rimraf dist && cross-env API_KEY=ugayCTOgIaGrykFFeRCkmLBHn7eQ37Al NODE_ENV=production webpack --config config/webpack.config.prod.js",
+    "dev": "cross-env API_KEY=ugayCTOgIaGrykFFeRCkmLBHn7eQ37Al API_KEY_GOOGLE=AIzaSyBXUAzFoVBsxGtbGdRLG2857USwmFw65Pc NODE_ENV=development webpack-dev-server --config config/webpack.config.dev.js",
+    "prod": "rimraf dist && cross-env API_KEY=ugayCTOgIaGrykFFeRCkmLBHn7eQ37Al API_KEY_GOOGLE=AIzaSyBXUAzFoVBsxGtbGdRLG2857USwmFw65Pc NODE_ENV=production webpack --config config/webpack.config.prod.js",
     "flow-typed": "rimraf flow-typed/npm && flow-typed install",
     "postinstall": "rimraf dist && NODE_ENV=production webpack --config config/webpack.config.prod.js",
     "check": "flow check"
@@ -36,6 +35,7 @@
     "html-webpack-plugin": "2.30.1",
     "less": "2.7.3",
     "less-loader": "4.0.5",
+    "ramda": "0.25.0",
     "rimraf": "2.6.2",
     "style-loader": "0.19.1",
     "svg-inline-loader": "0.8.0",

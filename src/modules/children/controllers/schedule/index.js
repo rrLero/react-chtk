@@ -5,25 +5,26 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import {getSchedule} from '../../../admin/services/actions';
-
-import type {WithStyleConnector} from "../../../../typedef";
+import {getDataCalendar} from '../../services/actions';
 
 import ScheduleView from '../../views/schedule';
+import type {ScheduleGoogleItem} from '../../services/typedef';
 
 
-type OwnProps = {
-
-};
+type OwnProps = {};
 
 type DispatchProps = {
-    getSchedule: () => void
+    getSchedule: () => void,
+    getDataCalendar: (?Date) => void
 };
 
 type StateProps = {
     data: Array<{
         courts: Array<Array<string>>,
         time: string
-    }>
+    }>,
+    scheduleGoogle: Array<ScheduleGoogleItem>,
+    qnt: number
 };
 
 type Props = DispatchProps & StateProps & OwnProps;
@@ -31,30 +32,36 @@ type Props = DispatchProps & StateProps & OwnProps;
 export class ScheduleController extends React.Component<Props> {
 
     componentDidMount() {
-        this.props.getSchedule()
+        this.props.getSchedule();
+        this.props.getDataCalendar();
     }
 
     render() {
-        const {data} = this.props;
+        const {data, scheduleGoogle, qnt} = this.props;
         return (
             data ? (
                 <ScheduleView
                     tournament={data}
                     time={'2018-04-29'}
+                    scheduleGoogle={scheduleGoogle}
+                    qnt={qnt}
                 />
             ) : null
-        )
+        );
     }
 }
 
 const mapStateToProps = state => ({
-    data: state.admin.schedule
+    data: state.admin.schedule,
+    scheduleGoogle: state.rating.schedule,
+    qnt: state.rating.qnt
 });
 
 const mapDispatchToProps = {
-    getSchedule
+    getSchedule,
+    getDataCalendar
 };
 
-const connector: WithStyleConnector<OwnProps, Props> = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default withRouter(connector(ScheduleController));

@@ -3,6 +3,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+import {find, path, equals, compose} from 'ramda';
 
 import AdminSingleTourView from '../../views/single-tour';
 import GetToursController from '../../../../controllers/get-tours';
@@ -34,10 +35,13 @@ export class AdminSingleTourController extends React.Component<Props> {
     render() {
         const {match} = this.props;
         const {id} = match.params;
+        const equalsId = equals(id);
+        const pathToMongoId = path(['_id', '$oid']);
+        const findDataEqualToUrl = find(compose(equalsId, pathToMongoId));
         return (
             <GetPlayersController
                 view={({data: playersData}) => {
-                    return (match.params.id === 'add_new') && playersData ? (
+                    return equalsId('add_new') && playersData ? (
                         <AdminSingleTourView
                             tour={null}
                             isLoading={this.props.isLoading}
@@ -49,9 +53,9 @@ export class AdminSingleTourController extends React.Component<Props> {
                     ) : (
                         <GetToursController
                             view={({data}) => (
-                                data && playersData && data.find(el => el._id.$oid === id) ? (
+                                data && playersData && findDataEqualToUrl(data) ? (
                                     <AdminSingleTourView
-                                        tour={data.find(el => el._id.$oid === id) || null}
+                                        tour={findDataEqualToUrl(data) || null}
                                         isLoading={this.props.isLoading}
                                         players={playersData}
                                         addTour={this.props.addTour}

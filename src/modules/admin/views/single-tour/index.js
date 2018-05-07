@@ -3,6 +3,7 @@
 import React from 'react';
 import {withStyles} from 'material-ui/styles';
 import {withRouter} from 'react-router-dom';
+import {path, filter, prop, not, compose, __} from 'ramda';
 
 import styles from './styles';
 
@@ -136,6 +137,7 @@ class AdminSingleTourView extends React.Component<Props, State> {
     render() {
         const {classes, players} = this.props;
         const {tour} = this.state;
+        const pathToMongoId = path(['_id', '$oid']);
         if (tour) {
             const {date, _id, name, ...rest} = tour;
             const keys = Object.keys(rest);
@@ -145,10 +147,10 @@ class AdminSingleTourView extends React.Component<Props, State> {
                         variant="raised"
                         color="primary"
                         className={classes.update}
-                        onClick={!this.state.tour._id.$oid ? this.addNewTour : this.update}>
-                        {!this.state.tour._id.$oid ? 'Add New' : 'Update'}
+                        onClick={!pathToMongoId(tour) ? this.addNewTour : this.update}>
+                        {!pathToMongoId(tour) ? 'Add New' : 'Update'}
                     </Button>
-                    {this.state.tour._id.$oid ? (
+                    {pathToMongoId(tour) ? (
                         <Button
                             variant="raised"
                             color="primary"
@@ -192,10 +194,8 @@ class AdminSingleTourView extends React.Component<Props, State> {
                             <option value={''}>
                                 {''}
                             </option>
-                            {players.filter(el => {
-                                return !this.state.tour[el._id.$oid];
-                            }).map(person => (
-                                <option key={person._id.$oid} value={person._id.$oid}>
+                            {filter(compose(not, prop(__, tour), pathToMongoId))(players).map(person => (
+                                <option key={pathToMongoId(person)} value={pathToMongoId(person)}>
                                     {`${(person && person.lastName) || ''} ${(person && person.name) || ''}`}
                                 </option>
                             ))}

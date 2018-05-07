@@ -1,12 +1,13 @@
 // @flow
 
 import {
-    GET_DATA_RATING
+    GET_DATA_RATING, GET_CALENDAR_DATA_FAILURE, GET_CALENDAR_DATA_REQUEST, GET_CALENDAR_DATA_SUCCESS
 } from './constants';
 
-import type {Dispatch} from '../../../store/typedef';
+import type {ApiDispatch, Dispatch} from '../../../store/typedef';
 
 import {getPlayersList, getTournamentsList, getPoints} from '../../admin/services/actions';
+import {getGoogle} from '../../../api';
 
 export const getDataRating = () => (dispatch: Dispatch) => {
     return Promise.all([
@@ -30,3 +31,23 @@ export const getDataRating = () => (dispatch: Dispatch) => {
     });
 };
 
+export const getMinMaxToday = (date: Date) => {
+    date.setHours(3, 0, 0, 0);
+    const timeMin = date.toISOString();
+    date.setHours(26, 59, 59, 0);
+    const timeMax = date.toISOString();
+    return {timeMin, timeMax};
+};
+
+export const getDataCalendar = (date?: Date = new Date()) => (dispatch: ApiDispatch) => {
+    return dispatch({
+        CALL_API: {
+            types: [
+                GET_CALENDAR_DATA_REQUEST,
+                GET_CALENDAR_DATA_SUCCESS,
+                GET_CALENDAR_DATA_FAILURE
+            ],
+            endpoint: () => getGoogle('events', getMinMaxToday(date))
+        }
+    });
+};

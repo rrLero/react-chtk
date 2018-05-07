@@ -1,4 +1,4 @@
-import urlResolver from './urlResolver';
+import urlResolver, {googleUrlResolver} from './urlResolver';
 import {CONTENT_TYPE_JSON} from './const';
 import 'isomorphic-fetch';
 
@@ -9,7 +9,7 @@ const callApi = endpoint => endpoint()
                 return Promise.reject(json);
             }
             return json;
-        })
+        });
     });
 
 export default store => next => action => {
@@ -18,8 +18,7 @@ export default store => next => action => {
         return next(action);
     }
 
-    let {endpoint} = callAPI;
-    let {response} = callAPI;
+    const {endpoint} = callAPI;
     const {types} = callAPI;
 
     const actionWith = data => {
@@ -29,7 +28,7 @@ export default store => next => action => {
     };
 
     const [requestType, successType, failureType] = types;
-    next(actionWith({type: requestType, response: response}));
+    next(actionWith({type: requestType}));
 
     return callApi(endpoint).then(
         response => next(actionWith({
@@ -46,6 +45,9 @@ export default store => next => action => {
 const get = (url: string, extraParams: Object = {}) =>
     fetch(urlResolver(url, extraParams));
 
+const getGoogle = (url: string, extraParams: Object = {}) =>
+    fetch(googleUrlResolver(url, extraParams));
+
 const POST_CONFIG = {method: 'POST', headers: {'Content-Type': CONTENT_TYPE_JSON}};
 const post = (url: string, body: Object, extraParams: Object = {}) =>
     fetch(urlResolver(url, extraParams), {...POST_CONFIG, body: JSON.stringify(body)});
@@ -57,4 +59,4 @@ const put = (url: string, body: Object, extraParams: Object = {}) =>
 const remove = (url: string, extraParams: Object = {}) =>
     fetch(urlResolver(url, extraParams), {method: 'DELETE'});
 
-export {get, post, put, remove};
+export {get, post, put, remove, getGoogle};

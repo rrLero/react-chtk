@@ -1,7 +1,12 @@
 // @flow
 
-import {GET_DATA_RATING} from './constants';
+import {
+    GET_DATA_RATING,
+    GET_CALENDAR_DATA_SUCCESS, GET_CALENDAR_DATA_REQUEST, GET_CALENDAR_DATA_FAILURE
+} from './constants';
 import type {ResponseDataRating} from '../../admin/services/typedef';
+import {map, compose, path, lensPath, view, over, sortBy} from 'ramda';
+import type {ScheduleGoogle} from './typedef';
 
 const DEFAULT_STATE = {
     isLoading: false
@@ -12,7 +17,10 @@ export type State = {
 };
 
 type Action =
-    | { type: 'GET_DATA_RATING', error: string, response: ResponseDataRating };
+    | { type: 'GET_DATA_RATING', error: string, response: ResponseDataRating }
+    | { type: 'GET_CALENDAR_DATA_REQUEST' }
+    | { type: 'GET_CALENDAR_DATA_SUCCESS', response: ScheduleGoogle }
+    | { type: 'GET_CALENDAR_DATA_FAILURE', error: string };
 
 const rating = (state: State = DEFAULT_STATE, action: Action): State => {
 
@@ -20,6 +28,57 @@ const rating = (state: State = DEFAULT_STATE, action: Action): State => {
         return {
             ...state,
             dataRating: action.response,
+            isLoading: false
+        };
+    }
+
+    if (action.type === GET_CALENDAR_DATA_REQUEST) {
+        return {
+            ...state,
+            isLoading: true
+        };
+    }
+
+    if (action.type === GET_CALENDAR_DATA_SUCCESS) {
+        const pathToStartDate = lensPath(['start', 'dateTime']);
+        const pathToEndDate = lensPath(['end', 'dateTime']);
+        const startPathSet = over(pathToStartDate, Date.parse);
+        const endPathSet = over(pathToEndDate, Date.parse);
+        const sortByDate = sortBy(view(pathToStartDate));
+        const schedule = compose(sortByDate, map(compose(startPathSet, endPathSet)))(path(['items'], action.response));
+        const freeTime = [];
+        schedule.forEach((el, i) => {
+            let toChange = true;
+            if (!i) {
+                el.court = 1;
+                freeTime.push(el.end.dateTime);
+                toChange = false;
+            } else {
+                freeTime.forEach((free, j) => {
+                    if (el.start.dateTime >= free && !el.court) {
+                        el.court = j + 1;
+                        freeTime[j] = el.end.dateTime;
+                        toChange = false;
+                    }
+                });
+            }
+            if (toChange) {
+                freeTime.push(el.end.dateTime);
+                el.court = freeTime.length;
+                toChange = false;
+            }
+        });
+        return {
+            ...state,
+            isLoading: false,
+            schedule,
+            qnt: freeTime.length
+        };
+    }
+
+    if (action.type === GET_CALENDAR_DATA_FAILURE) {
+        return {
+            ...state,
             isLoading: false
         };
     }

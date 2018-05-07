@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -27,19 +27,20 @@ module.exports = {
             template: './src/index.html'
         }),
         new BrowserSyncPlugin({
-                open: false,
-                notify: false,
-                port: 9000,
-                proxy: 'http://localhost:8080/'
-            },
-            {
-                reload: false
-            }),
-        new ExtractTextPlugin("styles.css"),
+            open: false,
+            notify: false,
+            port: 9000,
+            proxy: 'http://localhost:8080/'
+        },
+        {
+            reload: false
+        }),
+        new ExtractTextPlugin('styles.css'),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-                API_KEY: JSON.stringify(process.env.API_KEY)
+                API_KEY: JSON.stringify(process.env.API_KEY),
+                API_KEY_GOOGLE: JSON.stringify(process.env.API_KEY_GOOGLE)
             }
         })
 
@@ -56,7 +57,7 @@ module.exports = {
                 {
                     test: /\.less/,
                     use: ExtractTextPlugin.extract({
-                        fallback: "style-loader",
+                        fallback: 'style-loader',
                         use: 'css-loader?{minimize: true}!less-loader'
                     })
                 }
@@ -70,7 +71,7 @@ module.exports = {
                 use: {
                     loader: 'file-loader',
                     options: {
-                        name: "./images/[name].[ext]"
+                        name: './images/[name].[ext]'
                     }
                 }
             }
