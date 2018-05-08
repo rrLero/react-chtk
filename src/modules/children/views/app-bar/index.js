@@ -2,8 +2,7 @@
 
 import React from 'react';
 import {withStyles} from 'material-ui/styles';
-import {withRouter} from 'react-router-dom';
-import {NavLink} from 'react-router-dom';
+import {withRouter, NavLink} from 'react-router-dom';
 
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -15,7 +14,7 @@ import MenuIcon from 'material-ui-icons/Home';
 import styles from './styles';
 
 import type {WithStyleConnector} from '../../../../typedef';
-import type {Node} from 'react'
+import type {Node} from 'react';
 
 type OwnProps = {
     children: Node
@@ -47,11 +46,11 @@ class AppBarChildren extends React.Component<Props, State> {
                         <Typography variant="title" color="inherit" className={classes.flex}>
                             ЧТК - Дети
                         </Typography>
-                        <Button color="inherit">
-                            <NavLink to={'/children/schedule'}>Расписание</NavLink>
+                        <Button color="inherit" component={props => <NavLink to="/children/schedule" {...props} />}>
+                            Расписание
                         </Button>
-                        <Button color="inherit">
-                            <NavLink to={'/children/rating'}>Рейтинг</NavLink>
+                        <Button color="inherit" component={props => <NavLink to={'/children/rating'} {...props} />}>
+                            Рейтинг
                         </Button>
                     </Toolbar>
                 </AppBar>

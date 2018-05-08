@@ -10,8 +10,6 @@ import Spinner from 'material-ui/Progress/CircularProgress';
 
 import RatingTableView from '../../views/rating-table';
 
-import type {WithStyleConnector} from '../../../../typedef';
-
 type OwnProps = {
     filter: Array<number>
 };
@@ -61,7 +59,7 @@ export class RatingTableController extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
     isLoading: state.rating.isLoading
 });
 
@@ -69,6 +67,6 @@ const mapDispatchToProps = {
 
 };
 
-const connector: WithStyleConnector<OwnProps, Props> = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default withRouter(connector(RatingTableController));

@@ -1,7 +1,8 @@
 // @flow
 
 import {
-    GET_DATA_RATING, GET_CALENDAR_DATA_FAILURE, GET_CALENDAR_DATA_REQUEST, GET_CALENDAR_DATA_SUCCESS
+    GET_DATA_RATING, GET_CALENDAR_DATA_FAILURE, GET_CALENDAR_DATA_REQUEST, GET_CALENDAR_DATA_SUCCESS,
+    SET_DATA_RATING_IS_LOADING, UNSET_DATA_RATING_IS_LOADING
 } from './constants';
 
 import type {ApiDispatch, Dispatch} from '../../../store/typedef';
@@ -10,6 +11,7 @@ import {getPlayersList, getTournamentsList, getPoints} from '../../admin/service
 import {getGoogle} from '../../../api';
 
 export const getDataRating = () => (dispatch: Dispatch) => {
+    dispatch({type: SET_DATA_RATING_IS_LOADING});
     return Promise.all([
         getPlayersList()(dispatch),
         getTournamentsList()(dispatch),
@@ -24,9 +26,9 @@ export const getDataRating = () => (dispatch: Dispatch) => {
                 points: res[1].response.reduce((prev, curr) => {
                     return prev + (res[2].response[0][curr[el._id.$oid]] || 0);
                 }, 0)
-
             };
         }).sort((a, b) => b.points - a.points);
+        dispatch({type: UNSET_DATA_RATING_IS_LOADING});
         return dispatch({type: GET_DATA_RATING, response: data});
     });
 };

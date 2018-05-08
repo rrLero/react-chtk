@@ -2,20 +2,19 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 
 import {getDataRating} from '../../modules/children/services/actions';
 
-import type {WithStyleConnector as Connector} from '../../typedef';
 import type {Node} from 'react';
 import type {Data} from './typedef';
+import type {Dispatch} from '../../store/typedef';
 
 type OwnProps = {
     view: ({data: Array<Data>}) => Node
 };
 
 type DispatchProps = {
-    getDataRating: () => void
+    getDataRating: () => (dispatch: Dispatch) => Promise<*>
 };
 
 type StateProps = {
@@ -39,11 +38,11 @@ export class GetDataRatingController extends React.Component<Props> {
 
     render() {
         const {data, view} = this.props;
-        return view({data})
+        return view({data});
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     data: state.rating.dataRating
 });
 
@@ -51,6 +50,6 @@ const mapDispatchToProps = {
     getDataRating
 };
 
-const connector: Connector<OwnProps, Props> = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default withRouter(connector(GetDataRatingController));
+export default connector(GetDataRatingController);

@@ -2,7 +2,8 @@
 
 import {
     GET_DATA_RATING,
-    GET_CALENDAR_DATA_SUCCESS, GET_CALENDAR_DATA_REQUEST, GET_CALENDAR_DATA_FAILURE
+    GET_CALENDAR_DATA_SUCCESS, GET_CALENDAR_DATA_REQUEST, GET_CALENDAR_DATA_FAILURE,
+    SET_DATA_RATING_IS_LOADING, UNSET_DATA_RATING_IS_LOADING
 } from './constants';
 import type {ResponseDataRating} from '../../admin/services/typedef';
 import {map, compose, path, lensPath, view, over, sortBy} from 'ramda';
@@ -80,6 +81,20 @@ const rating = (state: State = DEFAULT_STATE, action: Action): State => {
         return {
             ...state,
             isLoading: false
+        };
+    }
+
+    if (action.type === UNSET_DATA_RATING_IS_LOADING) {
+        return {
+            ...state,
+            isLoading: false
+        };
+    }
+
+    if (action.type === SET_DATA_RATING_IS_LOADING) {
+        return {
+            ...state,
+            isLoading: true
         };
     }
 
