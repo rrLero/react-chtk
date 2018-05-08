@@ -4,8 +4,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
-import type {Connector} from 'react-redux';
-
 import RatingView from '../../views/rating';
 
 type OwnProps = {
@@ -26,10 +24,8 @@ export class RatingController extends React.Component<Props> {
 
     render() {
         return (
-              <RatingView
-                  rating={[{name: 'player1', id: '1', points: 3500}]}
-              />
-            )
+            <RatingView/>
+        );
     }
 }
 
@@ -41,6 +37,6 @@ const mapDispatchToProps = {
 
 };
 
-const connector: Connector<OwnProps, Props> = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default withRouter(connector(RatingController));

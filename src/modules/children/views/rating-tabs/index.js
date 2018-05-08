@@ -2,7 +2,6 @@
 
 import React from 'react';
 import {withStyles} from 'material-ui/styles';
-import {withRouter} from 'react-router-dom';
 
 import AppBar from 'material-ui/AppBar';
 import Tabs, {Tab} from 'material-ui/Tabs';
@@ -13,7 +12,7 @@ import RatingTableController from '../../controllers/rating-table';
 import styles from './styles';
 import type {WithStyleConnector} from '../../../../typedef';
 
-const TabContainer = (props) => {
+const TabContainer = props => {
     return (
         <Typography component="div" style={{padding: 8 * 3}}>
             {props.children}
@@ -36,7 +35,7 @@ type Props = OwnProps & WithProps;
 class RatingTabsView extends React.Component<Props, State> {
 
     state = {
-        value: 0,
+        value: 0
     };
 
     handleChange = (event, value) => {
@@ -57,10 +56,10 @@ class RatingTabsView extends React.Component<Props, State> {
                         <Tab label="до 10 лет"/>
                     </Tabs>
                 </AppBar>
-                {value === 0 && <TabContainer><RatingTableController filter={[0,18]}/></TabContainer>}
-                {value === 1 && <TabContainer><RatingTableController filter={[12,14]}/></TabContainer>}
-                {value === 2 && <TabContainer><RatingTableController filter={[10,12]}/></TabContainer>}
-                {value === 3 && <TabContainer><RatingTableController filter={[0,10]}/></TabContainer>}
+                {value === 0 && <TabContainer><RatingTableController filter={[0, 18]}/></TabContainer>}
+                {value === 1 && <TabContainer><RatingTableController filter={[12, 14]}/></TabContainer>}
+                {value === 2 && <TabContainer><RatingTableController filter={[10, 12]}/></TabContainer>}
+                {value === 3 && <TabContainer><RatingTableController filter={[0, 10]}/></TabContainer>}
             </div>
         );
     }

@@ -28,7 +28,7 @@ type Props = OwnProps & WithProps;
 class ChildrenView extends React.Component<Props, State> {
 
     render() {
-        const {classes, children} = this.props;
+        const {children} = this.props;
         return (
             <AppBarChildren>
                 {children}

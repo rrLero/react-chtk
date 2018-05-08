@@ -12,7 +12,6 @@ import styles from './styles';
 import type {WithStyleConnector} from '../../../../typedef';
 
 type OwnProps = {
-    rating: Array<any>
 };
 
 type WithProps = {
@@ -28,7 +27,7 @@ type Props = OwnProps & WithProps;
 class RatingView extends React.Component<Props, State> {
 
     render() {
-        const {classes, rating} = this.props;
+        const {classes} = this.props;
         return (
             <div className={classes.page}>
                 <Typography variant={'display3'} className={classes.title}>

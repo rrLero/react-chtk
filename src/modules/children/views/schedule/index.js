@@ -30,6 +30,8 @@ type Props = OwnProps & WithProps;
 
 class ScheduleChildren extends React.Component<Props, State> {
 
+    clearId: IntervalID;
+
     getTimeString = (date: number) => {
         const hours = `0${new Date(date).getHours()}`.slice(-2);
         const minutes = `0${new Date(date).getMinutes()}`.slice(-2);
@@ -38,7 +40,12 @@ class ScheduleChildren extends React.Component<Props, State> {
 
     onDateChange = (event: MouseEvent) => {
         if (event.target instanceof HTMLInputElement) {
-            this.props.getDataCalendar(new Date(event.target.value));
+            const val = event.target.value;
+            clearInterval(this.clearId);
+            this.props.getDataCalendar(new Date(val));
+            this.clearId = setInterval(() => {
+                this.props.getDataCalendar(new Date(val));
+            }, 50000);
         }
     };
 

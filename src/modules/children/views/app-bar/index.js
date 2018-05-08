@@ -49,6 +49,9 @@ class AppBarChildren extends React.Component<Props, State> {
                         <Button color="inherit" component={props => <NavLink to="/children/schedule" {...props} />}>
                             Расписание
                         </Button>
+                        <Button color="inherit" component={props => <NavLink to={'/children/tours'} {...props} />}>
+                            Турниры
+                        </Button>
                         <Button color="inherit" component={props => <NavLink to={'/children/rating'} {...props} />}>
                             Рейтинг
                         </Button>
