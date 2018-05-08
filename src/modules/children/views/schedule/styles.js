@@ -25,8 +25,7 @@ const styles = (theme: Theme) => ({
     page: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        paddingTop: theme.spacing.unit * 3
+        alignItems: 'center'
     },
     link: {
         color: theme.palette.common.black,
@@ -63,6 +62,10 @@ const styles = (theme: Theme) => ({
     },
     divider: {
         position: 'absolute'
+    },
+    datePicker: {
+        alignSelf: 'flex-end',
+        margin: theme.spacing.unit * 3
     }
 });
 

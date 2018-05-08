@@ -2,10 +2,12 @@
 
 import React from 'react';
 import {withStyles} from 'material-ui/styles';
+import {path} from 'ramda';
 
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
+import TextField from 'material-ui/TextField';
 
 import styles from './styles';
 
@@ -13,10 +15,9 @@ import type {WithStyleConnector} from '../../../../typedef';
 import type {ScheduleGoogleItem} from '../../services/typedef';
 
 type OwnProps = {
-    tournament: Array<{ time: string, courts: Array<Array<string>> }>,
-    time: string,
     scheduleGoogle: Array<ScheduleGoogleItem>,
-    qnt: number
+    qnt: number,
+    getDataCalendar: (?Date) => void
 };
 
 type WithProps = {
@@ -35,13 +36,32 @@ class ScheduleChildren extends React.Component<Props, State> {
         return `${hours}-${minutes}`;
     };
 
+    onDateChange = (event: MouseEvent) => {
+        if (event.target instanceof HTMLInputElement) {
+            this.props.getDataCalendar(new Date(event.target.value));
+        }
+    };
+
     render() {
         const {classes, qnt, scheduleGoogle} = this.props;
-        const hours = new Array(24).fill(0);
-        const nowDate = new Date();
+        const nowDate = new Date(path(['0', 'start', 'dateTime'])(scheduleGoogle));
         nowDate.setHours(3, 0, 0, 0);
+        const currentDate = nowDate.toISOString().slice(0, 10);
+        const hours = new Array(24).fill(0);
         return (
             <div className={classes.page}>
+                <form className={classes.datePicker} noValidate={true}>
+                    <TextField
+                        id="date"
+                        label="Current"
+                        type="date"
+                        defaultValue={currentDate}
+                        InputLabelProps={{
+                            shrink: true
+                        }}
+                        onChange={this.onDateChange}
+                    />
+                </form>
                 <div className={classes.courtsNames}>
                     {new Array(qnt).fill(0).map((el, i) => (
                         <Typography key={i}>
