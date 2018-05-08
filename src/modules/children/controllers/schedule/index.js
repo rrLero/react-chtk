@@ -34,13 +34,13 @@ export class ScheduleController extends React.Component<Props> {
     }
 
     render() {
-        const {scheduleGoogle, qnt, isLoading, getDataCalendar} = this.props;
+        const {scheduleGoogle, qnt, isLoading} = this.props;
         return (
             !scheduleGoogle ? isLoading ? <Spinner/> : null : (
                 <ScheduleView
                     scheduleGoogle={scheduleGoogle}
                     qnt={qnt}
-                    getDataCalendar={getDataCalendar}
+                    getDataCalendar={this.props.getDataCalendar}
                 />
             )
         );
