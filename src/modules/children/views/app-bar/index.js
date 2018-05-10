@@ -2,14 +2,16 @@
 
 import React from 'react';
 import {withStyles} from 'material-ui/styles';
-import {withRouter, NavLink} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
+import Drawer from 'material-ui/Drawer';
+import Hidden from 'material-ui/Hidden';
 import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Home';
+import MenuIcon from 'material-ui-icons/Menu';
+import MenuList from '../menu-list';
+import Typography from 'material-ui/Typography';
 
 import styles from './styles';
 
@@ -25,38 +27,52 @@ type WithProps = {
 };
 
 type State = {
-
+    mobileOpen: boolean
 };
 
 type Props = OwnProps & WithProps;
 
 class AppBarChildren extends React.Component<Props, State> {
 
+    state = {
+        mobileOpen: false
+    };
+
+    handleDrawerToggle = () => {
+        this.setState({mobileOpen: !this.state.mobileOpen});
+    };
+
     render() {
         const {classes, children} = this.props;
         return (
             <div className={classes.root}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                            <NavLink to={'/'}>
-                                <MenuIcon />
-                            </NavLink>
+                <AppBar>
+                    <Toolbar className={classes.toolbar}>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={this.handleDrawerToggle}
+                            className={classes.navIconHide}>
+                            <MenuIcon/>
                         </IconButton>
-                        <Typography variant="title" color="inherit" className={classes.flex}>
-                            ЧТК - Дети
-                        </Typography>
-                        <Button color="inherit" component={props => <NavLink to="/children/schedule" {...props} />}>
-                            Расписание
-                        </Button>
-                        <Button color="inherit" component={props => <NavLink to={'/children/tours'} {...props} />}>
-                            Турниры
-                        </Button>
-                        <Button color="inherit" component={props => <NavLink to={'/children/rating'} {...props} />}>
-                            Рейтинг
-                        </Button>
+                        <Hidden xsDown={true}>
+                            <MenuList/>
+                        </Hidden>
                     </Toolbar>
                 </AppBar>
+                <Drawer
+                    variant="temporary"
+                    anchor={'left'}
+                    open={this.state.mobileOpen}
+                    onClose={this.handleDrawerToggle}
+                    classes={{
+                        paper: classes.drawerPaper
+                    }}
+                    ModalProps={{
+                        keepMounted: true
+                    }}>
+                    <MenuList/>
+                </Drawer>
                 {children}
             </div>
         );

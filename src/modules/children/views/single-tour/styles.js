@@ -38,7 +38,15 @@ const styles = (theme: Theme) => ({
         flexWrap: 'wrap'
     },
     listItem: {
-        width: '33.3%'
+        [theme.breakpoints.up('md')]: {
+            width: '33.3%'
+        },
+        [theme.breakpoints.between('xs', 'md')]: {
+            width: '50%'
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: '100%'
+        }
     }
 });
 

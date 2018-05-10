@@ -12,7 +12,7 @@ const styles = (theme: Theme) => ({
     chooseTour: {
         display: 'flex',
         flexDirection: 'column',
-        minWidth: 350,
+        minWidth: 250,
         alignSelf: 'flex-end'
     },
     title: {

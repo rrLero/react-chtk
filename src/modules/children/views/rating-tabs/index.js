@@ -49,7 +49,7 @@ class RatingTabsView extends React.Component<Props, State> {
         return (
             <div className={classes.root}>
                 <AppBar position="static">
-                    <Tabs value={value} onChange={this.handleChange}>
+                    <Tabs value={value} onChange={this.handleChange} fullWidth={true}>
                         <Tab label="Общий"/>
                         <Tab label="от 12 до 14 лет"/>
                         <Tab label="от 10 до 12 лет"/>
