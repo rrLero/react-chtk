@@ -30,6 +30,9 @@ const styles = (theme: Theme) => ({
         [theme.breakpoints.up('sm')]: {
             position: 'relative'
         }
+    },
+    column: {
+        flexDirection: 'column'
     }
 });
 

@@ -8,7 +8,7 @@ module.exports = {
     cache: true,
     entry: {
         app: './src/index.js',
-        polyfill: 'babel-polyfill',
+        polyfill: 'babel-polyfill'
     },
     output: {
         filename: '[name].bundle.[hash].js',

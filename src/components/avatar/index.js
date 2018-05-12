@@ -18,7 +18,7 @@ type WithProps = {
 };
 
 type OwnProps = {
-    size?: 'sm' | 'md' | 'lg',
+    size?: 'sm' | 'md' | 'lg' | 'xl',
     alt: string,
     src: string
 };
@@ -29,7 +29,8 @@ const MainAvatar = ({size, classes, className, src, ...other}: Props) => {
     const sizeClassName = classNamesBind.bind(classes)({
         sm: size === 'sm',
         md: size === 'md',
-        lg: size === 'lg'
+        lg: size === 'lg',
+        xl: size === 'xl'
     });
     const avatarClassName = classNames(
         classes.root,

@@ -2,7 +2,8 @@
 
 import React from 'react';
 import {withStyles} from 'material-ui/styles';
-import {withRouter} from 'react-router-dom';
+import {withRouter, NavLink} from 'react-router-dom';
+import classNames from 'classnames';
 
 import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
@@ -67,7 +68,15 @@ class SingleTourView extends React.Component<Props, State> {
                                 src={player.avatarUrl}
                                 size={'sm'}
                             />
-                            <ListItemText primary={`${player.name} ${player.lastName}`} secondary={`${player.year}`} />
+                            <ListItemText
+                                primary={
+                                    <NavLink
+                                        to={`/children/players/${player._id.$oid}`}
+                                        className={classNames(classes.link)}>
+                                        {`${player.name} ${player.lastName}`}
+                                    </NavLink>}
+                                secondary={`${player.year}`}
+                            />
                         </ListItem>
                     ))}
                 </List>

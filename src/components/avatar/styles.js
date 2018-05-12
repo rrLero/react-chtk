@@ -18,6 +18,10 @@ const styles = (theme: Theme) => ({
     lg: {
         width: 80,
         height: 80
+    },
+    xl: {
+        width: 150,
+        height: 150
     }
 });
 

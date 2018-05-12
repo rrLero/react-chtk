@@ -47,6 +47,14 @@ const styles = (theme: Theme) => ({
         [theme.breakpoints.down('xs')]: {
             width: '100%'
         }
+    },
+    link: {
+        '&[href]': {
+            color: 'inherit',
+            '&:hover': {
+                color: theme.palette.primary.dark
+            }
+        }
     }
 });
 

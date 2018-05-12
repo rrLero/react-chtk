@@ -11,7 +11,6 @@ import Hidden from 'material-ui/Hidden';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import MenuList from '../menu-list';
-import Typography from 'material-ui/Typography';
 
 import styles from './styles';
 
@@ -71,7 +70,7 @@ class AppBarChildren extends React.Component<Props, State> {
                     ModalProps={{
                         keepMounted: true
                     }}>
-                    <MenuList/>
+                    <MenuList column={classes.column}/>
                 </Drawer>
                 {children}
             </div>

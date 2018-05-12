@@ -5,6 +5,7 @@ import {Switch, Route, Redirect} from 'react-router-dom';
 import ScheduleController from './controllers/schedule/index';
 import RatingController from './controllers/rating/index';
 import ToursController from './controllers/tours/index';
+import PlayersController from './controllers/players/index';
 import ChildrenView from './views';
 
 const Children = () => {
@@ -16,6 +17,8 @@ const Children = () => {
                 <Route path="/children/rating" component={RatingController}/>
                 <Route exact={true} path="/children/tours" component={ToursController}/>
                 <Route path="/children/tours/:id" component={ToursController}/>
+                <Route exact={true} path="/children/players" component={PlayersController}/>
+                <Route path="/children/players/:id" component={PlayersController}/>
             </ChildrenView>
         </Switch>
     );

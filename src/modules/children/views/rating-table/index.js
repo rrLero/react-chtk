@@ -2,8 +2,10 @@
 
 import React from 'react';
 import {withStyles} from 'material-ui/styles';
+import {NavLink} from 'react-router-dom';
 
 import Table, {TableBody, TableCell, TableHead, TableRow} from 'material-ui/Table';
+import Button from 'material-ui/Button';
 
 import styles from './styles';
 
@@ -50,7 +52,14 @@ class RatingTableView extends React.Component<Props, State> {
                             return (
                                 <TableRow key={i}>
                                     <TableCell>{i + 1}</TableCell>
-                                    <TableCell>{el.name}</TableCell>
+                                    <TableCell>
+                                        <Button className={classes.link}
+                                            component={
+                                                props => <NavLink to={`/children/players/${el.id}`} {...props} />
+                                            }>
+                                            {el.name}
+                                        </Button>
+                                    </TableCell>
                                     <TableCell>{el.year}</TableCell>
                                     <TableCell>{el.points}</TableCell>
                                 </TableRow>

@@ -8,6 +8,7 @@ import Tabs, {Tab} from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
 
 import RatingTableController from '../../controllers/rating-table';
+import {year1, year2, year3, year4} from './constants';
 
 import styles from './styles';
 import type {WithStyleConnector} from '../../../../typedef';
@@ -50,16 +51,16 @@ class RatingTabsView extends React.Component<Props, State> {
             <div className={classes.root}>
                 <AppBar position="static">
                     <Tabs value={value} onChange={this.handleChange} fullWidth={true}>
-                        <Tab label="Общий"/>
-                        <Tab label="от 12 до 14 лет"/>
-                        <Tab label="от 10 до 12 лет"/>
-                        <Tab label="до 10 лет"/>
+                        <Tab label={`от ${year3[1]} лет`}/>
+                        <Tab label={`от ${year3[0]} до ${year3[1]} лет`}/>
+                        <Tab label={`от ${year2[0]} до ${year2[1]} лет`}/>
+                        <Tab label={`до ${year1[1]} лет`}/>
                     </Tabs>
                 </AppBar>
-                {value === 0 && <TabContainer><RatingTableController filter={[0, 18]}/></TabContainer>}
-                {value === 1 && <TabContainer><RatingTableController filter={[12, 14]}/></TabContainer>}
-                {value === 2 && <TabContainer><RatingTableController filter={[10, 12]}/></TabContainer>}
-                {value === 3 && <TabContainer><RatingTableController filter={[0, 10]}/></TabContainer>}
+                {value === 0 && <TabContainer><RatingTableController filter={year4}/></TabContainer>}
+                {value === 1 && <TabContainer><RatingTableController filter={year3}/></TabContainer>}
+                {value === 2 && <TabContainer><RatingTableController filter={year2}/></TabContainer>}
+                {value === 3 && <TabContainer><RatingTableController filter={year1}/></TabContainer>}
             </div>
         );
     }

@@ -9,6 +9,14 @@ const styles = (theme: Theme) => ({
     },
     table: {
 
+    },
+    link: {
+        '&[href]': {
+            color: 'inherit',
+            '&:hover': {
+                color: theme.palette.primary.dark
+            }
+        }
     }
 });
 

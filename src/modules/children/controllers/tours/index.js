@@ -8,6 +8,7 @@ import {filter, contains, toString, path, compose, map, sort, find, equals} from
 
 import GetToursController from '../../../../controllers/get-tours';
 import ToursView from '../../views/tours';
+import Spinner from 'material-ui/Progress/CircularProgress';
 
 import type {Match, RouterHistory} from 'react-router-dom';
 
@@ -21,7 +22,7 @@ type DispatchProps = {
 };
 
 type StateProps = {
-
+    isLoading: boolean
 };
 
 type Props = DispatchProps & StateProps & OwnProps;
@@ -29,7 +30,7 @@ type Props = DispatchProps & StateProps & OwnProps;
 export class ToursController extends React.Component<Props> {
 
     render() {
-        const {match} = this.props;
+        const {match, isLoading} = this.props;
         const pathToDate = path(['date']);
         const pathToId = path(['params', 'id']);
         const equalsToUrlId = equals(pathToId(match));
@@ -47,13 +48,13 @@ export class ToursController extends React.Component<Props> {
         return (
             <GetToursController
                 view={({data}) => (
-                    data ? (
+                    !data ? isLoading ? <Spinner size={100}/> : null : (
                         <ToursView
                             tour={findTour(data)}
                             suggestions={suggestions(tours(data))}
                             id={pathToId(match)}
                         />
-                    ) : null
+                    )
                 )}
             />
         );
@@ -61,7 +62,7 @@ export class ToursController extends React.Component<Props> {
 }
 
 const mapStateToProps = state => ({
-
+    isLoading: state.admin.isLoading
 });
 
 const mapDispatchToProps = {

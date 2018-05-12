@@ -6,9 +6,6 @@ import {type Theme} from '../../../../with-root/typedef';
 const styles = (theme: Theme) => ({
     root: {
         display: 'flex',
-        [theme.breakpoints.down('xs')]: {
-            flexDirection: 'column'
-        },
         padding: 0
     },
     flex: {
@@ -20,15 +17,25 @@ const styles = (theme: Theme) => ({
         marginRight: 20
     },
     item: {
-        padding: 0
+        minWidth: 'unset'
     },
     text: {
-        [theme.breakpoints.up('xs')]: {
-            color: theme.palette.common.white
-        },
-        [theme.breakpoints.down('xs')]: {
-            color: theme.palette.primary.dark
+        '&[href]': {
+            [theme.breakpoints.up('xs')]: {
+                color: theme.palette.common.white
+            },
+            [theme.breakpoints.down('xs')]: {
+                color: theme.palette.primary.dark
+            },
+            '&:hover': {
+                [theme.breakpoints.down('xs')]: {
+                    color: theme.palette.primary.light
+                }
+            }
         }
+    },
+    active: {
+        background: 'rgba(0,0,0,0.1)'
     }
 });
 
