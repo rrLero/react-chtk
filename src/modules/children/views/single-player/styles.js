@@ -29,13 +29,22 @@ const styles = (theme: Theme) => ({
             }
         }
     },
+    avatarZone: {
+        flexBasis: '100%',
+        display: 'flex',
+        justifyContent: 'center'
+    },
     avatar: {
         margin: theme.spacing.unit * 2
     },
     container: {
         display: 'flex',
+        justifyContent: 'center',
         paddingLeft: theme.spacing.unit * 3,
         paddingRight: theme.spacing.unit * 3
+    },
+    color: {
+        background: 'rgba(255,235,59,0.3)'
     }
 });
 

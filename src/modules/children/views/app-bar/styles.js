@@ -18,7 +18,7 @@ const styles = (theme: Theme) => ({
         marginRight: 20
     },
     toolbar: {
-        justifyContent: 'flex-end'
+        justifyContent: 'space-between'
     },
     navIconHide: {
         [theme.breakpoints.up('sm')]: {
@@ -33,6 +33,16 @@ const styles = (theme: Theme) => ({
     },
     column: {
         flexDirection: 'column'
+    },
+    avatar: {
+        [theme.breakpoints.up('xs')]: {
+            width: 60,
+            height: 60
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: 50,
+            height: 50
+        }
     }
 });
 

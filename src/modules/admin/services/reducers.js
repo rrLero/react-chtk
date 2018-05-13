@@ -31,20 +31,33 @@ import {
     EDIT_COACH_SUCCESS,
     EDIT_COACH_REQUEST,
     EDIT_COACH_FAILURE,
-    LOGIN
+    LOGIN,
+    GET_NEWS_CHILDREN_SUCCESS,
+    GET_NEWS_CHILDREN_REQUEST,
+    GET_NEWS_CHILDREN_FAILURE,
+    ADD_ONE_NEW_SUCCESS,
+    ADD_ONE_NEW_REQUEST,
+    ADD_ONE_NEW_FAILURE,
+    REMOVE_ONE_NEW_SUCCESS,
+    REMOVE_ONE_NEW_REQUEST,
+    REMOVE_ONE_NEW_FAILURE,
+    EDIT_ONE_NEW_SUCCESS,
+    EDIT_ONE_NEW_REQUEST,
+    EDIT_ONE_NEW_FAILURE
 } from './constants';
 
 const DEFAULT_STATE = {
     isLoading: false
 };
 
-import type {ResponsePlayers, ResponseSchedule, ResponseTour, ResponseCoach} from './typedef';
+import type {ResponsePlayers, ResponseSchedule, ResponseTour, ResponseCoach, ResponseNew} from './typedef';
 
 export type State = {
     isLoading: boolean,
     players?: Array<ResponsePlayers>,
     coaches?: Array<ResponseCoach>,
-    tours?: Array<ResponseTour>
+    tours?: Array<ResponseTour>,
+    news?: Array<ResponseNew>
 };
 
 type Action =
@@ -79,6 +92,18 @@ type Action =
     | { type: 'EDIT_COACH_REQUEST'}
     | { type: 'EDIT_COACH_SUCCESS', response: ResponseCoach }
     | { type: 'EDIT_COACH_FAILURE', error: string }
+    | { type: 'ADD_ONE_NEW_SUCCESS', response: ResponseNew }
+    | { type: 'ADD_ONE_NEW_REQUEST' }
+    | { type: 'ADD_ONE_NEW_FAILURE', error: string }
+    | { type: 'REMOVE_ONE_NEW_REQUEST'}
+    | { type: 'REMOVE_ONE_NEW_SUCCESS', response: ResponseNew }
+    | { type: 'REMOVE_ONE_NEW_FAILURE', error: string }
+    | { type: 'EDIT_ONE_NEW_REQUEST'}
+    | { type: 'EDIT_ONE_NEW_SUCCESS', response: ResponseNew }
+    | { type: 'EDIT_ONE_NEW_FAILURE', error: string }
+    | { type: 'GET_NEWS_CHILDREN_REQUEST'}
+    | { type: 'GET_NEWS_CHILDREN_SUCCESS', response: Array<ResponseNew> }
+    | { type: 'GET_NEWS_CHILDREN_FAILURE', error: string }
     | { type: 'LOGIN', pass: string };
 
 
@@ -308,6 +333,94 @@ const admin = (state: State = DEFAULT_STATE, action: Action): State => {
         return {
             ...state,
             isLogin: action.pass === 'rrlero'
+        };
+    }
+
+    if (action.type === GET_NEWS_CHILDREN_REQUEST) {
+        return {
+            ...state,
+            isLoading: true
+        };
+    }
+
+    if (action.type === GET_NEWS_CHILDREN_SUCCESS) {
+        return {
+            ...state,
+            news: action.response,
+            isLoading: false
+        };
+    }
+
+    if (action.type === GET_NEWS_CHILDREN_FAILURE) {
+        return {
+            ...state,
+            isLoading: false
+        };
+    }
+
+    if (action.type === ADD_ONE_NEW_REQUEST) {
+        return {
+            ...state,
+            isLoading: true
+        };
+    }
+
+    if (action.type === ADD_ONE_NEW_FAILURE) {
+        return {
+            ...state,
+            isLoading: false
+        };
+    }
+
+    if (action.type === ADD_ONE_NEW_SUCCESS) {
+        return {
+            ...state,
+            news: [...state.news || [], {...action.response}],
+            isLoading: false
+        };
+    }
+
+    if (action.type === REMOVE_ONE_NEW_FAILURE) {
+        return {
+            ...state,
+            isLoading: false
+        };
+    }
+
+    if (action.type === REMOVE_ONE_NEW_REQUEST) {
+        return {
+            ...state,
+            isLoading: true
+        };
+    }
+
+    if (action.type === REMOVE_ONE_NEW_SUCCESS) {
+        const id = action.response._id.$oid;
+        return {
+            ...state,
+            news: [...state.news || []].filter(el => el._id.$oid !== id),
+            isLoading: false
+        };
+    }
+
+    if (action.type === EDIT_ONE_NEW_FAILURE) {
+        return {
+            ...state,
+            isLoading: false
+        };
+    }
+
+    if (action.type === EDIT_ONE_NEW_REQUEST) {
+        return {
+            ...state,
+            isLoading: true
+        };
+    }
+
+    if (action.type === EDIT_ONE_NEW_SUCCESS) {
+        return {
+            ...state,
+            isLoading: false
         };
     }
 

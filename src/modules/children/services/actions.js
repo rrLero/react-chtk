@@ -11,10 +11,11 @@ import {getPlayersList, getTournamentsList, getPoints} from '../../admin/service
 import {getGoogle} from '../../../api';
 
 export const getDataRating = () => (dispatch: Dispatch) => {
+    const nowYear = new Date(Date.now()).getFullYear();
     dispatch({type: SET_DATA_RATING_IS_LOADING});
     return Promise.all([
         getPlayersList()(dispatch),
-        getTournamentsList()(dispatch),
+        getTournamentsList(nowYear)(dispatch),
         getPoints()(dispatch)]).then(res => {
         const data = res[0].response.map(el => {
             return {

@@ -2,8 +2,8 @@
 /* eslint quote-props: ["error", "as-needed"] */
 
 import {type Theme} from '../../../../with-root/typedef';
-import deepOrange from 'material-ui/colors/deepOrange';
-import deepPurple from 'material-ui/colors/deepPurple';
+// import deepOrange from 'material-ui/colors/deepOrange';
+// import deepPurple from 'material-ui/colors/deepPurple';
 
 const styles = (theme: Theme) => ({
     root: {
@@ -26,12 +26,12 @@ const styles = (theme: Theme) => ({
     orangeAvatar: {
         margin: 10,
         color: '#fff',
-        backgroundColor: deepOrange[500]
+        backgroundColor: '#ffc108'
     },
     purpleAvatar: {
         margin: 10,
         color: '#fff',
-        backgroundColor: deepPurple[500]
+        backgroundColor: '#3ab7a6'
     },
     list: {
         display: 'flex',

@@ -2,6 +2,7 @@
 
 import './styles.less';
 import React from 'react';
+import type {Dispatch} from '../../../../store/typedef';
 
 type Props = {
     hash: string,
@@ -9,8 +10,8 @@ type Props = {
     classLink: string,
     text: string,
     isToggle: boolean,
-    setToggleMenu: () => void
-}
+    setToggleMenu: () => (dispatch: Dispatch) => Promise<*>
+};
 
 const MenuItem = ({hash, classItem, classLink, text, isToggle, setToggleMenu}: Props) => {
     return (
@@ -18,13 +19,11 @@ const MenuItem = ({hash, classItem, classLink, text, isToggle, setToggleMenu}: P
             <a
                 href={hash}
                 className={classLink}
-                onClick={() => {
-                    isToggle ? setToggleMenu() : ''
-                }}
-            >{text}
+                onClick={() => (isToggle ? setToggleMenu() : a => a)}>
+                {text}
             </a>
         </li>
-    )
+    );
 };
 
 export default MenuItem;

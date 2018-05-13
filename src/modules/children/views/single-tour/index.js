@@ -53,7 +53,7 @@ class SingleTourView extends React.Component<Props, State> {
                             {tour.name}
                         </Typography>
                         <Typography variant="subheading" className={classes.date}>
-                            Дата: {tour.date}
+                            {tour.date}
                         </Typography>
                     </Toolbar>
                 </AppBar>

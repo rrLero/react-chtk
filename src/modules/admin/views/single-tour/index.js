@@ -40,7 +40,8 @@ type State = {
     newSign: {
         id: string,
         value: number
-    }
+    },
+    year?: number
 };
 
 type Props = OwnProps & WithProps;
@@ -51,7 +52,8 @@ class AdminSingleTourView extends React.Component<Props, State> {
         tour: this.props.tour || {
             _id: {$oid: ''},
             name: 'Input New Name Here',
-            date: ''
+            date: '',
+            year: -1
         },
         newSign: {
             id: '',
@@ -83,7 +85,7 @@ class AdminSingleTourView extends React.Component<Props, State> {
         this.setState({
             newSign: {
                 id: this.state.newSign.id,
-                value: isNaN(+val) ? val : +val
+                value: val
             }
         });
     };
@@ -107,7 +109,7 @@ class AdminSingleTourView extends React.Component<Props, State> {
     };
 
     update = () => {
-        this.props.editTour(this.state.tour);
+        this.props.editTour({...this.state.tour, year: +this.state.tour.date.slice(0, 4)});
     };
 
     removeTour = () => {
@@ -119,16 +121,15 @@ class AdminSingleTourView extends React.Component<Props, State> {
     };
 
     addNewTour = () => {
-        this.props.addTour(this.state.tour).then(res => {
+        this.props.addTour({...this.state.tour, year: +this.state.tour.date.slice(0, 4)}).then(res => {
             if (res.response) {
                 this.props.history.push(`/admin/tours/${res.response._id.$oid}`);
             }
         });
-
     };
 
     removeSet = (id: string) => {
-        const {[id]: deleted, ...rest} = this.state.tour;
+        const {[id]: deleted, ...rest} = this.state.tour; // eslint-disable-line no-unused-vars
         this.setState({
             tour: rest
         });
@@ -139,7 +140,7 @@ class AdminSingleTourView extends React.Component<Props, State> {
         const {tour} = this.state;
         const pathToMongoId = path(['_id', '$oid']);
         if (tour) {
-            const {date, _id, name, ...rest} = tour;
+            const {date, _id, name, year, ...rest} = tour; // eslint-disable-line no-unused-vars
             const keys = Object.keys(rest);
             return (
                 <form className={classes.container}>
@@ -161,11 +162,15 @@ class AdminSingleTourView extends React.Component<Props, State> {
                     ) : null}
                     <Paper className={classes.editZone}>
                         <TextField
-                            label={'date'}
-                            className={classes.textField}
-                            value={date}
+                            id="date"
+                            label="date"
+                            type="date"
+                            defaultValue={date}
+                            InputLabelProps={{
+                                shrink: true
+                            }}
                             onChange={this.handleChange('date')}
-                            margin="normal"
+                            className={classes.textField}
                         />
                     </Paper>
                     <Paper className={classes.editZone}>
@@ -206,6 +211,7 @@ class AdminSingleTourView extends React.Component<Props, State> {
                             value={this.state.newSign.value}
                             onChange={this.handleChangeNewValue()}
                             margin="normal"
+                            type={'number'}
                         />
                         <Button
                             variant="fab"

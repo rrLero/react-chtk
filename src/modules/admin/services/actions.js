@@ -17,13 +17,17 @@ import {
     EDIT_TOUR_FAILURE, EDIT_TOUR_REQUEST, EDIT_TOUR_SUCCESS,
     ADD_TOUR_FAILURE, ADD_TOUR_REQUEST, ADD_TOUR_SUCCESS,
     REMOVE_TOUR_FAILURE, REMOVE_TOUR_REQUEST, REMOVE_TOUR_SUCCESS,
-    LOGIN
+    LOGIN,
+    GET_NEWS_CHILDREN_FAILURE, GET_NEWS_CHILDREN_REQUEST, GET_NEWS_CHILDREN_SUCCESS,
+    EDIT_ONE_NEW_FAILURE, EDIT_ONE_NEW_REQUEST, EDIT_ONE_NEW_SUCCESS,
+    REMOVE_ONE_NEW_FAILURE, REMOVE_ONE_NEW_REQUEST, REMOVE_ONE_NEW_SUCCESS,
+    ADD_ONE_NEW_FAILURE, ADD_ONE_NEW_REQUEST, ADD_ONE_NEW_SUCCESS
 } from './constants';
 
 import type {ApiDispatch, GetState, Dispatch, Dispatcher} from '../../../store/typedef';
 import type {Player} from '../views/plyer-detail/typedef';
 import type {Coach} from '../views/coach-detail/typedef';
-import type {ResponseTour as Tour} from './typedef';
+import type {ResponseNew, ResponseTour as Tour} from './typedef';
 
 export const getCoachesList = () => (dispatch: ApiDispatch) => {
     return dispatch({
@@ -64,7 +68,7 @@ export const getPoints = () => (dispatch: ApiDispatch) => {
     });
 };
 
-export const getTournamentsList = () => (dispatch: ApiDispatch) => {
+export const getTournamentsList = (currYear?: number) => (dispatch: ApiDispatch) => {
     return dispatch({
         CALL_API: {
             types: [
@@ -72,7 +76,9 @@ export const getTournamentsList = () => (dispatch: ApiDispatch) => {
                 GET_TOURNAMENTS_SUCCESS,
                 GET_TOURNAMENTS_FAILURE
             ],
-            endpoint: () => get('tournaments')
+            endpoint: () => {
+                return currYear ? get('tournaments', {q: `{"year": ${currYear}}`}) : get('tournaments');
+            }
         }
     });
 };
@@ -105,7 +111,7 @@ export const editPlayer = (player: Player) => (dispatch: ApiDispatch) => {
 };
 
 export const addPlayer = (player: Player) => (dispatch: ApiDispatch) => {
-    const {id, coach, ...rest} = player;
+    const {id, coach, ...rest} = player; // eslint-disable-line no-unused-vars
     return dispatch({
         CALL_API: {
             types: [
@@ -147,7 +153,7 @@ export const editCoach = (coach: Coach) => (dispatch: ApiDispatch) => {
 };
 
 export const addCoach = (coach: Coach) => (dispatch: ApiDispatch) => {
-    const {id, ...rest} = coach;
+    const {id, ...rest} = coach; // eslint-disable-line no-unused-vars
     return dispatch({
         CALL_API: {
             types: [
@@ -189,7 +195,7 @@ export const editTour = (tour: Tour) => (dispatch: ApiDispatch) => {
 };
 
 export const addTour = (tour: Tour) => (dispatch: ApiDispatch) => {
-    const {_id, ...rest} = tour;
+    const {_id, ...rest} = tour; // eslint-disable-line no-unused-vars
     return dispatch({
         CALL_API: {
             types: [
@@ -220,5 +226,60 @@ export const login = (pass: string): Dispatcher => (dispatch: Dispatch) => {
     return dispatch({
         type: LOGIN,
         pass
+    });
+};
+
+export const getNewsChildrenList = () => (dispatch: ApiDispatch) => {
+    return dispatch({
+        CALL_API: {
+            types: [
+                GET_NEWS_CHILDREN_REQUEST,
+                GET_NEWS_CHILDREN_SUCCESS,
+                GET_NEWS_CHILDREN_FAILURE
+            ],
+            endpoint: () => get('news')
+        }
+    });
+};
+
+export const editNew = (oneNew: ResponseNew) => (dispatch: ApiDispatch) => {
+    const {_id, ...rest} = oneNew;
+    return dispatch({
+        CALL_API: {
+            types: [
+                EDIT_ONE_NEW_REQUEST,
+                EDIT_ONE_NEW_SUCCESS,
+                EDIT_ONE_NEW_FAILURE
+            ],
+            endpoint: () => put(`news/${_id.$oid}`, {$set: {...rest}})
+        }
+    });
+};
+
+export const addNew = (oneNew: ResponseNew) => (dispatch: ApiDispatch) => {
+    const {_id, ...rest} = oneNew; // eslint-disable-line no-unused-vars
+    return dispatch({
+        CALL_API: {
+            types: [
+                ADD_ONE_NEW_REQUEST,
+                ADD_ONE_NEW_SUCCESS,
+                ADD_ONE_NEW_FAILURE
+            ],
+            endpoint: () => post('news', {...rest})
+        }
+    });
+};
+
+export const removeNew = (oneNew: ResponseNew) => (dispatch: ApiDispatch) => {
+    const {_id} = oneNew;
+    return dispatch({
+        CALL_API: {
+            types: [
+                REMOVE_ONE_NEW_REQUEST,
+                REMOVE_ONE_NEW_SUCCESS,
+                REMOVE_ONE_NEW_FAILURE
+            ],
+            endpoint: () => remove(`news/${_id.$oid}`)
+        }
     });
 };

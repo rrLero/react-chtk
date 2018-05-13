@@ -48,3 +48,14 @@ export type ResponseCoach = {
     year: number,
     avatarUrl: string
 };
+
+export type ResponseNew = {
+    _id: {
+        $oid: string
+    },
+    date: string,
+    title: string,
+    text: string,
+    links: string,
+    imageUrl: string
+};

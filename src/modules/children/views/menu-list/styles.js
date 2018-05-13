@@ -6,7 +6,11 @@ import {type Theme} from '../../../../with-root/typedef';
 const styles = (theme: Theme) => ({
     root: {
         display: 'flex',
-        padding: 0
+        padding: 0,
+        [theme.breakpoints.up('sm')]: {
+            flexGrow: 1,
+            justifyContent: 'flex-end'
+        }
     },
     flex: {
         flex: 1

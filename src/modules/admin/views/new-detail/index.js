@@ -12,35 +12,34 @@ import EditIcon from 'material-ui-icons/Edit';
 import DeleteIcon from 'material-ui-icons/Delete';
 
 import type {WithStyleConnector} from '../../../../typedef';
-import type {Data as PlayersData} from '../../../../controllers/get-players/typedef';
-import type {Data as CoachesData} from '../../../../controllers/get-coaches/typedef';
 import type {ApiDispatcher} from '../../../../store/typedef';
-import type {Player} from './typedef';
+import type {ResponseNew} from '../../services/typedef';
 
 type OwnProps = {
-    player: PlayersData,
-    coaches: Array<CoachesData>,
-    actionPlayer: (State) => ApiDispatcher,
-    removePlayer?: (State) => ApiDispatcher
+    oneNew: ResponseNew,
+    actionNew: (State) => ApiDispatcher,
+    removeNew?: (State) => ApiDispatcher
 };
 
 type WithProps = {
     classes: $Call<typeof styles>
 };
 
-type State = Player;
+type State = ResponseNew;
 
 type Props = OwnProps & WithProps;
 
-class PlayerDetailView extends React.Component<Props, State> {
+class NewDetailView extends React.Component<Props, State> {
 
     state = {
-        coach: this.props.player.coach.id,
-        name: this.props.player.name,
-        lastName: this.props.player.lastName,
-        year: +this.props.player.year,
-        avatarUrl: this.props.player.avatarUrl,
-        id: this.props.player._id.$oid
+        title: this.props.oneNew.title,
+        text: this.props.oneNew.text,
+        date: this.props.oneNew.date,
+        links: this.props.oneNew.links,
+        imageUrl: this.props.oneNew.imageUrl,
+        _id: {
+            $oid: this.props.oneNew._id.$oid
+        }
     };
 
     handleChange = (name: string, val?: string) => event => {
@@ -50,80 +49,66 @@ class PlayerDetailView extends React.Component<Props, State> {
     };
 
     render() {
-        const {classes, player, coaches} = this.props;
-        const {name, lastName, avatarUrl, coach, year} = this.state;
+        const {classes, oneNew} = this.props;
+        const {title, text, links, date, imageUrl} = this.state;
         return (
             <form className={classes.container}>
                 <TextField
-                    label={'lastName'}
+                    label={'title'}
                     className={classes.textField}
-                    value={lastName}
-                    onChange={this.handleChange('lastName')}
+                    value={title}
+                    onChange={this.handleChange('title')}
                     margin="normal"
                 />
                 <TextField
-                    label={'name'}
+                    label={'text'}
                     className={classes.textField}
-                    value={name}
-                    onChange={this.handleChange('name')}
+                    value={text}
+                    onChange={this.handleChange('text')}
+                    margin="normal"
+                    multiline={true}
+                />
+                <TextField
+                    label={'imageUrl'}
+                    className={classes.textField}
+                    value={imageUrl}
+                    onChange={this.handleChange('imageUrl')}
                     margin="normal"
                 />
                 <TextField
-                    label={'coach'}
-                    select={true}
+                    label={'links'}
                     className={classes.textField}
-                    value={coach}
-                    onChange={this.handleChange('coach')}
-                    margin="normal"
-                    SelectProps={{
-                        native: true,
-                        MenuProps: {
-                            className: classes.menu
-                        }
-                    }}>
-                    <option value={''}>
-                        {''}
-                    </option>
-                    {coaches.map(person => (
-                        <option key={person._id.$oid} value={person._id.$oid}>
-                            {`${(person && person.lastName) || ''} ${(person && person.name) || ''}`}
-                        </option>
-                    ))}
-                </TextField>
-                <TextField
-                    label={'year'}
-                    className={classes.textField}
-                    value={year}
-                    onChange={this.handleChange('year')}
-                    margin="normal"
-                    type={'number'}
-                />
-                <TextField
-                    label={'avatarUrl'}
-                    className={classes.textField}
-                    value={avatarUrl}
-                    onChange={this.handleChange('avatarUrl')}
+                    value={links}
+                    onChange={this.handleChange('links')}
                     margin="normal"
                 />
-                {!player._id.$oid ? (
+                <TextField
+                    label={'date'}
+                    className={classes.textField}
+                    value={date}
+                    onChange={this.handleChange('date')}
+                    margin="normal"
+                    type="date"
+                />
+                {!oneNew._id.$oid ? (
                     <Button
                         variant="fab"
                         color="primary"
                         aria-label="add"
                         className={classes.button}
                         mini={true}
-                        onClick={() => this.props.actionPlayer(this.state)}>
+                        onClick={() => this.props.actionNew(this.state)}>
                         <AddIcon />
                     </Button>
                 ) : null}
-                {player._id.$oid ? (
+                {oneNew._id.$oid ? (
                     <Fragment>
                         <Button
                             variant="fab"
                             aria-label="edit"
                             className={classes.button}
                             mini={true}
-                            onClick={() => this.props.actionPlayer(this.state)}>
+                            onClick={() => this.props.actionNew(this.state)}>
                             <EditIcon/>
                         </Button>
                         <Button
@@ -131,7 +116,7 @@ class PlayerDetailView extends React.Component<Props, State> {
                             aria-label="delete"
                             className={classes.button}
                             mini={true}
-                            onClick={() => this.props.removePlayer && this.props.removePlayer(this.state)}>
+                            onClick={() => this.props.removeNew && this.props.removeNew(this.state)}>
                             <DeleteIcon />
                         </Button>
                     </Fragment>
@@ -143,4 +128,4 @@ class PlayerDetailView extends React.Component<Props, State> {
 
 const withStyleConnector: WithStyleConnector<OwnProps, Props> = withStyles(styles);
 
-export default withStyleConnector(PlayerDetailView);
+export default withStyleConnector(NewDetailView);

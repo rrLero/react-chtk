@@ -5,6 +5,7 @@ import {withStyles} from 'material-ui/styles';
 
 import Typography from 'material-ui/Typography';
 import AvatarMat from 'material-ui/Avatar';
+import Divider from 'material-ui/Divider';
 
 import styles from './styles';
 
@@ -35,6 +36,7 @@ class PlayerDetailsRatingView extends React.Component<Props, State> {
                 <Typography variant={'subheading'} className={classes.title}>
                     РЕЙТИНГ
                 </Typography>
+                <Divider/>
                 <div className={classes.type}>
                     <Typography variant={'body1'} className={classes.typeTitle}>
                         Категория:

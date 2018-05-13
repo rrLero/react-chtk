@@ -55,6 +55,9 @@ class AppBarAdmin extends React.Component<Props, State> {
                         <Button color="inherit">
                             <NavLink to={'/admin/coaches'}>Coaches</NavLink>
                         </Button>
+                        <Button color="inherit">
+                            <NavLink to={'/admin/news'}>News</NavLink>
+                        </Button>
                     </Toolbar>
                 </AppBar>
                 {children}

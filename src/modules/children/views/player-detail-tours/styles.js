@@ -29,6 +29,14 @@ const styles = (theme: Theme) => ({
     },
     avatar: {
         backgroundColor: deepPurple[500]
+    },
+    link: {
+        '&[href]': {
+            color: theme.palette.primary.main,
+            '&:hover': {
+                color: theme.palette.primary.dark
+            }
+        }
     }
 });
 

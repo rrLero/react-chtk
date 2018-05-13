@@ -12,6 +12,8 @@ import Avatar from '../../../../components/avatar';
 
 import PlayerDetailRatingView from '../player-details-rating';
 import PlayerDetailCoachView from '../player-detail-coach';
+import PlayerDetailToursView from '../player-detail-tours';
+import PlayerDetailRecommendsView from '../player-detail-recommends';
 
 import styles from './styles';
 
@@ -25,7 +27,6 @@ type OwnProps = {
     player: PlayerData,
     currentRating: number,
     coach: CoachesData,
-    ageBorders: Array<Array<number>>,
     age: number,
     id: string,
     ratingBorders: Array<number>,
@@ -45,10 +46,10 @@ type Props = OwnProps & WithProps;
 class SinglePlayerView extends React.Component<Props, State> {
 
     render() {
-        const {classes, player, coach, currentRating, ratingBorders, points} = this.props;
+        const {classes, player, coach, currentRating, ratingBorders, points, tours} = this.props;
         return (
             <Paper className={classes.root}>
-                <AppBar position="static" color="default">
+                <AppBar position="static" classes={{colorDefault: classes.color}} color={'default'}>
                     <Toolbar>
                         <Typography variant="title" color="primary" className={classes.title}>
                             {`${player.name} ${player.lastName}`}
@@ -59,12 +60,14 @@ class SinglePlayerView extends React.Component<Props, State> {
                     </Toolbar>
                 </AppBar>
                 <div className={classes.list}>
-                    <Avatar
-                        alt={player.name}
-                        src={player.avatarUrl}
-                        size={'xl'}
-                        className={classes.avatar}
-                    />
+                    <div className={classes.avatarZone}>
+                        <Avatar
+                            alt={player.name}
+                            src={player.avatarUrl}
+                            size={'xl'}
+                            className={classes.avatar}
+                        />
+                    </div>
                     <div className={classes.container}>
                         <PlayerDetailRatingView
                             currentRating={currentRating}
@@ -77,6 +80,16 @@ class SinglePlayerView extends React.Component<Props, State> {
                             name={coach && coach.name}
                             lastName={coach && coach.lastName}
                             avatarUrl={coach && coach.avatarUrl}
+                        />
+                    </div>
+                    <div className={classes.container}>
+                        <PlayerDetailToursView
+                            tours={tours || []}
+                        />
+                    </div>
+                    <div className={classes.container}>
+                        <PlayerDetailRecommendsView
+                            ratingBorders={ratingBorders || []}
                         />
                     </div>
                 </div>

@@ -4,18 +4,16 @@ import React from 'react';
 import {withStyles} from 'material-ui/styles';
 
 import Typography from 'material-ui/Typography';
-
-import Avatar from '../../../../components/avatar';
 import Divider from 'material-ui/Divider';
+
+import {path} from 'ramda';
 
 import styles from './styles';
 
 import type {WithStyleConnector} from '../../../../typedef';
 
 type OwnProps = {
-    name: string,
-    lastName: string,
-    avatarUrl: string
+    ratingBorders: Array<number>
 };
 
 type WithProps = {
@@ -28,26 +26,27 @@ type State = {
 
 type Props = OwnProps & WithProps;
 
-class PlayerDetailsCoachView extends React.Component<Props, State> {
+class PlayerDetailsRecommendsView extends React.Component<Props, State> {
 
     render() {
-        const {classes, name, lastName, avatarUrl} = this.props;
+        const {classes, ratingBorders} = this.props;
         return (
             <div className={classes.root}>
                 <Typography variant={'subheading'} className={classes.title}>
-                    ТРЕНЕР
+                    РЕКОМЕНДУЕТСЯ УЧАСТИЕ
                 </Typography>
                 <Divider/>
                 <div className={classes.type}>
-                    <Avatar
-                        alt={name}
-                        src={avatarUrl}
-                        size={'sm'}
-                    />
                     <Typography variant={'body1'} className={classes.typeTitle}>
-                        {`${name || '[empty]'} ${lastName || '[empty]'}`}
+                        Категория:
+                    </Typography>
+                    <Typography
+                        variant={'subheading'}
+                        className={classes.typeText}>
+                        {`от ${path(['0'])(ratingBorders)} до ${path(['1'])(ratingBorders)}`}
                     </Typography>
                 </div>
+
             </div>
         );
     }
@@ -55,4 +54,4 @@ class PlayerDetailsCoachView extends React.Component<Props, State> {
 
 const withStyleConnector: WithStyleConnector<OwnProps, Props> = withStyles(styles);
 
-export default withStyleConnector(PlayerDetailsCoachView);
+export default withStyleConnector(PlayerDetailsRecommendsView);

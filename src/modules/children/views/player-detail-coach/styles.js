@@ -13,7 +13,8 @@ const styles = (theme: Theme) => ({
     },
     type: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingTop: theme.spacing.unit
     },
     typeTitle: {
         marginLeft: theme.spacing.unit * 2,
@@ -21,8 +22,7 @@ const styles = (theme: Theme) => ({
     },
     title: {
         color: red[500],
-        textAlign: 'center',
-        paddingBottom: theme.spacing.unit
+        textAlign: 'center'
     }
 });
 

@@ -4,7 +4,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
-import {path, compose, map, sort, find, equals, contains, filter} from 'ramda';
+import {path, compose, map, sort, find, equals, filter} from 'ramda';
 
 import GetRatingController from '../../../../controllers/get-data-rating';
 import GetCoachesController from '../../../../controllers/get-coaches';
@@ -86,9 +86,6 @@ export class PlayersController extends React.Component<Props> {
                                     id={pathToId(match)}
                                     coach={
                                         find(compose(equals(getCoachId(findPlayer(players))), pathToMongoId))(coaches)
-                                    }
-                                    ageBorders={
-                                        filter(contains(nowYear - path(['year'])(findPlayer(players))))(yearsArray)
                                     }
                                     age={nowYear - path(['year'])(findPlayer(players))}
                                     tours={filter(path([pathToId(match)]))(tours)}

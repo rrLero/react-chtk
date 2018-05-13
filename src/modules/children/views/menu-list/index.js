@@ -41,12 +41,6 @@ class MenuListChildren extends React.Component<Props, State> {
                 <Divider />
                 <Button
                     className={classNames(classes.item, classes.text)}
-                    component={props => <NavLink to="/" {...props}/>}>
-                    Главная
-                </Button>
-                <Divider />
-                <Button
-                    className={classNames(classes.item, classes.text)}
                     component={props => <NavLink to="/children/schedule" {...props} activeClassName={classes.active}/>}>
                     Расписание
                 </Button>
@@ -64,6 +58,11 @@ class MenuListChildren extends React.Component<Props, State> {
                     className={classNames(classes.item, classes.text)}
                     component={props => <NavLink to="/children/rating" {...props} activeClassName={classes.active}/>}>
                     Рейтинг
+                </Button>
+                <Button
+                    className={classNames(classes.item, classes.text)}
+                    component={props => <NavLink to="/children/news" {...props} activeClassName={classes.active}/>}>
+                    Новости
                 </Button>
             </List>
         );
