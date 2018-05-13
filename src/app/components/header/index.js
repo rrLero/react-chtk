@@ -23,11 +23,13 @@ const AppHeader = ({isToggle, setToggleMenu: setToggle}: Props) => {
             <nav className={classHidden} id="navigation-bar">
                 <ul className={isToggle ? 'navigation-bar__nav-list isToggle' : 'navigation-bar__nav-list'}>
                     <NavLink
+                        onClick={setToggle}
                         to={'/children'}
                         className={'padding-link navigation-bar__nav-link navigation-bar__nav-item'}>
                         ДЕТИ
                     </NavLink>
                     <NavLink
+                        onClick={setToggle}
                         to={'/children/schedule'}
                         className={'padding-link navigation-bar__nav-link navigation-bar__nav-item'}>
                         РАСПИСАНИЕ
@@ -75,7 +77,7 @@ const AppHeader = ({isToggle, setToggleMenu: setToggle}: Props) => {
                 </ul>
             </nav>
             <NavButton
-                onClick={setToggleMenu}
+                onClick={setToggle}
                 toggle={isToggle}
             />
         </header>
