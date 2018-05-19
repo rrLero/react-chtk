@@ -48,10 +48,10 @@ class SingleNewView extends React.Component<Props, State> {
                                 <Button
                                     key={i}
                                     size="small"
-                                    color="primary"
-                                    className={classes.link}
-                                    component={props => <NavLink to={link} {...props} />}>
-                                    Файл - {i + 1}
+                                    color="primary">
+                                    <a href={link} target="_blank" className={classes.link}>
+                                        Файл - {i + 1}
+                                    </a>
                                 </Button>
                             ) : null
                         ))}

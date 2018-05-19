@@ -32,7 +32,7 @@ export class NewsController extends React.Component<Props> {
                 view={({data}) => (
                     !data ? isLoading ? <Spinner size={100}/> : null : (
                         <NewsView
-                            news={data.sort((a, b) => (a.date < b.date ? -1 : 1))}
+                            news={data.sort((a, b) => (a.date > b.date ? -1 : 1))}
                         />
                     )
                 )}
