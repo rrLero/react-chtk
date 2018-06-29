@@ -28,7 +28,7 @@ export const getDataRating = () => (dispatch: Dispatch) => {
                     return prev + (res[2].response[0][curr[el._id.$oid]] || 0);
                 }, 0)
             };
-        }).sort((a, b) => b.points - a.points);
+        }).filter(el => el.points).sort((a, b) => b.points - a.points);
         dispatch({type: UNSET_DATA_RATING_IS_LOADING});
         return dispatch({type: GET_DATA_RATING, response: data});
     });

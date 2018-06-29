@@ -52,19 +52,19 @@ const rating = (state: State = DEFAULT_STATE, action: Action): State => {
             let toChange = true;
             if (!i) {
                 el.court = 1;
-                freeTime.push(el.end.dateTime);
+                freeTime.push(view(pathToEndDate)(el));
                 toChange = false;
             } else {
                 freeTime.forEach((free, j) => {
-                    if (el.start.dateTime >= free && !el.court) {
+                    if (view(pathToStartDate)(el) >= free && !el.court) {
                         el.court = j + 1;
-                        freeTime[j] = el.end.dateTime;
+                        freeTime[j] = view(pathToEndDate)(el);
                         toChange = false;
                     }
                 });
             }
             if (toChange) {
-                freeTime.push(el.end.dateTime);
+                freeTime.push(view(pathToEndDate)(el));
                 el.court = freeTime.length;
                 toChange = false;
             }

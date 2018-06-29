@@ -36,7 +36,7 @@ export class ScheduleController extends React.Component<Props> {
     render() {
         const {scheduleGoogle, qnt, isLoading} = this.props;
         return (
-            !scheduleGoogle ? isLoading ? <Spinner/> : null : (
+            !scheduleGoogle ? isLoading ? <Spinner/> : <div style={{margin: 32}}>NO DATA AVAILABLE</div> : (
                 <ScheduleView
                     scheduleGoogle={scheduleGoogle}
                     qnt={qnt}
