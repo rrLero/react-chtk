@@ -14,7 +14,6 @@ import AddIcon from 'material-ui-icons/Add';
 import DeleteIcon from 'material-ui-icons/Delete';
 import Button from 'material-ui/Button';
 
-import type {WithStyleConnector} from '../../../../typedef';
 import type {Data as TourData} from '../../../../controllers/get-tours/typedef';
 import type {Data as PlayersData} from '../../../../controllers/get-players/typedef';
 import type {ResponseTour} from '../../services/typedef';
@@ -252,6 +251,6 @@ class AdminSingleTourView extends React.Component<Props, State> {
     }
 }
 
-const withStyleConnector: WithStyleConnector<OwnProps, Props> = withStyles(styles);
+const withStyleConnector = withStyles(styles);
 
 export default withRouter(withStyleConnector(AdminSingleTourView));

@@ -45,14 +45,14 @@ class SingleNewView extends React.Component<Props, State> {
                     <CardActions>
                         {oneNew.links.split(',').map((link, i) => (
                             link ? (
-                                <Button
-                                    key={i}
-                                    size="small"
-                                    color="primary">
-                                    <a href={link} target="_blank" className={classes.link}>
-                                        Файл - {i + 1}
-                                    </a>
-                                </Button>
+                                <a href={link} target="_blank" className={classes.link}>
+                                    <Button
+                                        key={i}
+                                        size="small"
+                                        color="primary">
+                                    Файл - {i + 1}
+                                    </Button>
+                                </a>
                             ) : null
                         ))}
                     </CardActions>

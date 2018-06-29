@@ -3,7 +3,7 @@
 import { GET_COURTS_FAILURE, GET_COURTS_REQUEST, GET_COURTS_SUCCESS } from './constants';
 
 import type {ApiDispatch} from '../../../store/typedef';
-import {Db} from "../../shared/db";
+import {Db} from '../../shared/db';
 
 export const getCourts = () => (dispatch: ApiDispatch) => {
     return dispatch({

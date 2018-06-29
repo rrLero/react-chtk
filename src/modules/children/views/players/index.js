@@ -80,6 +80,6 @@ class PlayersView extends React.Component<Props, State> {
     }
 }
 
-const withStyleConnector: WithStyleConnector<OwnProps, Props> = withStyles(styles);
+const withStyleConnector = withStyles(styles);
 
 export default withRouter(withStyleConnector(PlayersView));

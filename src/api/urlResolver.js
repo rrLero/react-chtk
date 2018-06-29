@@ -7,7 +7,7 @@ export default (url: string, extraParams: {}) => {
     return `${apiRoot()}${url}?${Object.entries(params).map(([key, value]) => `${key}=${String(value)}`).join('&')}`;
 };
 
-const apiRGoogle = () => 'https://www.googleapis.com/calendar/v3/calendars/chtk.smash@gmail.com/';
+const apiRGoogle = () => 'https://www.googleapis.com/calendar/v3/calendars/travers13@ukr.net/';
 const apiKeyGoogle = () => process.env.API_KEY_GOOGLE;
 export const googleUrlResolver = (url: string, extraParams: {}) => {
     const params = {...extraParams, key: apiKeyGoogle()};

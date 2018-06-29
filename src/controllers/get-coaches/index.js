@@ -8,13 +8,14 @@ import {getCoachesList} from '../../modules/admin/services/actions';
 
 import type {Node} from 'react';
 import type {Data} from './typedef';
+import type {Dispatch} from '../../store/typedef';
 
 type OwnProps = {
     view: ({data: Array<Data>}) => Node
 };
 
 type DispatchProps = {
-    getCoachesList: () => void
+    getCoachesList: () => (dispatch: Dispatch) => Promise<*>
 };
 
 type StateProps = {

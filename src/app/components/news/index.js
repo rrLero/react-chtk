@@ -2,54 +2,55 @@
 import './styles.less';
 import React from 'react';
 
-import type {Node} from 'react';
-
-import type {OneNew} from "../../../typedef";
-import {getNews, setActiveNew, changeActiveNew, turnOffTimer} from "./actions";
-import {connect} from "react-redux";
+import {getNews, setActiveNew, changeActiveNew, turnOffTimer} from './actions';
+import {connect} from 'react-redux';
 import NewsList from './news-list';
 import CurrentNew from './current-new';
 
+import type {OneNew} from '../../../typedef';
+import type {Dispatch} from '../../../store/typedef';
+
 type DispatchProps = {
-    setActiveNew: (id: number) => void,
-    getNews: () => Array<OneNew>,
-    changeActiveNew: () => void,
-    turnOffTimer: () => void,
-}
+    setActiveNew: (oneNew: OneNew) => (dispatch: Dispatch) => Promise<*>,
+    getNews: () => (dispatch: Dispatch) => Promise<*>,
+    changeActiveNew: () => (dispatch: Dispatch) => Promise<*>,
+    turnOffTimer: () => (dispatch: Dispatch) => Promise<*>
+};
 
 type StateProps = {
     news: Array<OneNew>,
-    activeNew: number,
+    activeNew: OneNew,
     isTimerOn: boolean
-}
+};
 
 type Props = DispatchProps & StateProps
 
 class AppNews extends React.Component<Props> {
 
-    timerId: number;
+    timerId: IntervalID;
 
     componentDidMount() {
-        const {getNews, changeActiveNew} = this.props;
-        getNews();
+        this.props.getNews();
         this.timerId = setInterval(() => {
-            changeActiveNew()
-        }, 5000)
+            this.props.changeActiveNew();
+        }, 5000);
     }
 
     componentWillUnmount() {
-        clearInterval(this.timerId)
+        clearInterval(this.timerId);
     }
 
     handleClick = (oneNew: OneNew) => {
-        const {setActiveNew, isTimerOn, turnOffTimer} = this.props;
-        setActiveNew(oneNew);
+        const {isTimerOn} = this.props;
+        this.props.setActiveNew(oneNew);
         clearInterval(this.timerId);
-        isTimerOn ? turnOffTimer() : null
+        if (isTimerOn) {
+            this.props.turnOffTimer();
+        }
     };
 
     render() {
-        const {news, activeNew, isTimerOn, turnOffTimer} = this.props;
+        const {news, activeNew, isTimerOn} = this.props;
         return (
             <section className="news" id="news">
                 <h1 className="news__title">Новости</h1>
@@ -61,11 +62,11 @@ class AppNews extends React.Component<Props> {
                 <CurrentNew
                     activeNew={activeNew}
                     isTimerOn={isTimerOn}
-                    turnOffTimer={turnOffTimer}
+                    turnOffTimer={this.props.turnOffTimer}
                     timerId={this.timerId}
                 />
             </section>
-        )
+        );
     }
 }
 

@@ -2,9 +2,15 @@
 
 import './styles.less';
 import React from 'react';
-import type {Court} from "../../../typedef";
 
-type Props = Court;
+type Props = {
+    address: string,
+    description: string,
+    imageUrl: string,
+    type: string,
+    name: string,
+    phones: string
+};
 
 const OneCourt = ({address, name, phones, type, description, imageUrl}: Props) => {
     return (

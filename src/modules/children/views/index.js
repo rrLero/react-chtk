@@ -8,7 +8,6 @@ import AppBarChildren from './app-bar';
 
 import styles from './styles';
 
-import type {WithStyleConnector} from '../../../typedef';
 import type {Node} from 'react';
 
 type OwnProps = {
@@ -37,6 +36,6 @@ class ChildrenView extends React.Component<Props, State> {
     }
 }
 
-const withStyleConnector: WithStyleConnector<OwnProps, Props> = withStyles(styles);
+const withStyleConnector = withStyles(styles);
 
 export default withRouter(withStyleConnector(ChildrenView));

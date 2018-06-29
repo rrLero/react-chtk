@@ -3,13 +3,13 @@ import './styles.less';
 import React from 'react';
 
 import ItemNew from '../item-new';
-import type {OneNew} from "../../../../typedef";
+import type {OneNew} from '../../../../typedef';
 
 type Props = {
     news: Array<OneNew>,
     activeNew: OneNew,
-    setActiveNew: (OneNew) => void;
-}
+    setActiveNew: (OneNew) => void
+};
 
 const NewsList = ({news, activeNew, setActiveNew}: Props) => {
     return (
@@ -23,10 +23,10 @@ const NewsList = ({news, activeNew, setActiveNew}: Props) => {
                         date={currentNew.date.replace(/\//g, '.')}
                         title={currentNew.title.replace(/\//g, '.')}
                     />
-                )
+                );
             })}
         </ul>
-    )
+    );
 };
 
 export default NewsList;

@@ -5,8 +5,10 @@ import {
     TURN_OFF_TIMER
 } from './constants';
 
-import {Db} from "../../shared/db";
+import {Db} from '../../shared/db';
 import type {ApiDispatch, Dispatch} from '../../../store/typedef';
+
+import type {OneNew} from '../../../typedef';
 
 export const getNews = () => (dispatch: ApiDispatch) => {
 
@@ -18,9 +20,9 @@ export const getNews = () => (dispatch: ApiDispatch) => {
     });
 };
 
-export const setActiveNew = (activeNew: number) => (dispatch: Dispatch) => dispatch({
+export const setActiveNew = (activeNew: OneNew) => (dispatch: Dispatch) => dispatch({
     type: SET_ACTIVE_NEW,
-    activeNew: activeNew
+    activeNew
 });
 
 export const changeActiveNew = () => (dispatch: Dispatch) => dispatch({

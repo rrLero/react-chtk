@@ -14,7 +14,7 @@ export type WithStyleConnector<OP, P> = (
 ) => ConnectedComponentClass<OP, P>;
 
 export type Court = {
-    address: string,
+    adress: string,
     type: string,
     description: string,
     name: string,

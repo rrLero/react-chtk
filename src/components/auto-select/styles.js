@@ -1,7 +1,7 @@
 // @flow
 /* eslint quote-props: ["error", "as-needed"] */
 
-import type {Theme} from 'Src/with-root/typedef';
+import type {Theme} from '../../with-root/typedef';
 
 const ITEM_HEIGHT = 48;
 const styles = (theme: Theme) => ({
