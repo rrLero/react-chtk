@@ -41,6 +41,7 @@ export class ToursController extends React.Component<Props> {
         };
         const tours = compose(sort(sortBy), filter(compose(contains(toString(thisYear)), pathToDate)));
         const findTour = find(compose(equalsToUrlId, pathToMongoId));
+        const findLastTour = equalsToUrlId('last');
         const suggestions = map(el => ({
             value: pathToMongoId(el),
             label: `${el.date} ${el.name}`
@@ -50,9 +51,9 @@ export class ToursController extends React.Component<Props> {
                 view={({data}) => (
                     !data ? isLoading ? <Spinner size={100}/> : null : (
                         <ToursView
-                            tour={findTour(data)}
+                            tour={findTour(data) || findLastTour && data[data.length - 1]}
                             suggestions={suggestions(tours(data))}
-                            id={pathToId(match)}
+                            id={findLastTour ? pathToMongoId(data[data.length - 1]) : pathToId(match)}
                         />
                     )
                 )}

@@ -40,6 +40,20 @@ type Props = DispatchProps & StateProps & OwnProps;
 
 export class PlayersController extends React.Component<Props> {
 
+    componentWillReceiveProps(nextProps: Props) {
+        const {match} = nextProps;
+        const {players} = this.props;
+        const pathToId = path(['params', 'id']);
+        const equalsToUrlId = equals(pathToId(match));
+        const pathToMongoId = path(['_id', '$oid']);
+        if (equalsToUrlId('rand')) {
+            if (players) {
+                const randPlayer = this.getRandomPlayer(players);
+                this.props.history.push(`/children/players/${pathToMongoId(randPlayer)}`);
+            }
+        }
+    }
+
     getBorderYear = (year: number) => {
         return yearsArray.find(el => (
             (year >= el[0]) && (year < el[1])
@@ -55,6 +69,12 @@ export class PlayersController extends React.Component<Props> {
             const nowYear = new Date(Date.now()).getFullYear();
             return (nowYear - el.year) >= filterArr[0] && (nowYear - el.year) < filterArr[1];
         }).findIndex(elem => elem.id === id);
+    };
+
+    getRandomPlayer = (players: Array<PlayerData>) => {
+        const max = players.length - 1;
+        const min = 0;
+        return players[Math.floor(Math.random() * (max - min)) + min];
     };
 
     render() {
@@ -83,10 +103,10 @@ export class PlayersController extends React.Component<Props> {
                                 <PlayersView
                                     player={findPlayer(players)}
                                     suggestions={suggestions(playersSort(players))}
-                                    id={pathToId(match)}
                                     coach={
                                         find(compose(equals(getCoachId(findPlayer(players))), pathToMongoId))(coaches)
                                     }
+                                    id={pathToId(match)}
                                     age={nowYear - path(['year'])(findPlayer(players))}
                                     tours={filter(path([pathToId(match)]))(tours)}
                                     currentRating={

@@ -45,12 +45,16 @@ class MenuListChildren extends React.Component<Props, State> {
                 </Button>
                 <Button
                     className={classNames(classes.item, classes.text)}
-                    component={props => <NavLink to="/children/tours" {...props} activeClassName={classes.active}/>}>
+                    component={
+                        props => <NavLink to="/children/tours/last" {...props} activeClassName={classes.active}/>
+                    }>
                     Турниры
                 </Button>
                 <Button
                     className={classNames(classes.item, classes.text)}
-                    component={props => <NavLink to="/children/players" {...props} activeClassName={classes.active}/>}>
+                    component={
+                        props => <NavLink to="/children/players/rand" {...props} activeClassName={classes.active}/>
+                    }>
                     Игроки
                 </Button>
                 <Button
