@@ -21,12 +21,6 @@ const Coaches = ({className}: Props) => {
                 tel={'(093) 500 38 00'}
             />
             <Coach
-                name={'Александр'}
-                image={'gavrish.jpg'}
-                className={'coaches__coach'}
-                tel={'(093) 884 05 01'}
-            />
-            <Coach
                 name={'Юлия'}
                 image={'yulia.jpg'}
                 className={'coaches__coach'}
