@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "cross-env API_KEY=AIzaSyBXUAzFoVBsxGtbGdRLG2857USwmFw65Pc NODE_ENV=development webpack-dev-server --config config/webpack.config.dev.js",
-    "prod": "rimraf dist && cross-env API_KEY=ugayCTOgIaGrykFFeRCkmLBHn7eQ37Al API_KEY_GOOGLE=AIzaSyBNPna2JxI6uggZ5EMGx_ZM-_sidTQXJzU NODE_ENV=production webpack --config config/webpack.config.prod.js",
+    "prod": "rimraf dist && cross-env API_KEY=ugayCTOgIaGrykFFeRCkmLBHn7eQ37Al API_KEY_GOOGLE=AIzaSyBXUAzFoVBsxGtbGdRLG2857USwmFw65Pc NODE_ENV=production webpack --config config/webpack.config.prod.js",
     "flow-typed": "rimraf flow-typed/npm && flow-typed install",
     "postinstall": "rimraf dist && NODE_ENV=production webpack --config config/webpack.config.prod.js",
     "check": "flow check"
